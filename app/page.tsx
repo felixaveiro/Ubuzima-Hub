@@ -55,47 +55,47 @@ const features = [
     icon: BarChart3,
     title: "Nutrition Mapping",
     description: "Interactive visualization of stunting, wasting, and micronutrient deficiencies across all 30 districts",
-    color: "text-[#1E3A8A]",
+    color: "text-[#005BAC]",
     benefits: ["Real-time data", "District-level insights", "Trend analysis"]
   },
   {
     icon: Brain,
     title: "AI Risk Prediction", 
     description: "Machine learning models identify communities at highest risk for targeted intervention planning",
-    color: "text-[#1E3A8A]",
+    color: "text-[#005BAC]",
     benefits: ["Predictive analytics", "Early warning", "Resource optimization"]
   },
   {
     icon: Target,
     title: "Root Cause Analysis",
     description: "Deep analysis of underlying factors across health, agriculture, and socioeconomic dimensions",
-    color: "text-[#1E3A8A]",
+    color: "text-[#005BAC]",
     benefits: ["Multi-factor analysis", "Evidence-based insights", "Policy guidance"]
   },
   {
     icon: Shield,
     title: "Smart Interventions",
     description: "Data-driven recommendations for nutrition programs and policy interventions with measurable impact",
-    color: "text-[#1E3A8A]",
+    color: "text-[#005BAC]",
     benefits: ["Targeted programs", "Impact measurement", "Cost efficiency"]
   },
 ]
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-[#E6E8EB] to-white font-sans">
       {/* Hero Section */}
-      <section className="relative py-32 px-6 bg-gradient-to-br from-[#1E3A8A]/5 via-white to-[#3B82F6]/5 overflow-hidden">
+      <section className="relative py-32 px-6 bg-gradient-to-br from-[#005BAC]/5 via-white to-[#005BAC]/10 overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="container mx-auto text-center relative z-10 max-w-7xl">
-          <Badge variant="secondary" className="mb-10 px-6 py-3 text-lg font-semibold bg-white shadow-sm border border-[#1E3A8A]/10 text-[#1E3A8A]">
+          <Badge variant="secondary" className="mb-10 px-6 py-3 text-lg font-semibold bg-white shadow-sm border border-[#005BAC]/10 text-[#005BAC]">
             <Heart className="h-6 w-6 mr-2 text-red-500" />
             Rwanda's Fight Against Hidden Hunger  and malnutriton in children
           </Badge>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-balance mb-10 leading-tight tracking-tight text-gray-900">
-            Ending <span className="text-[#1E3A8A] relative font-black">
+            Ending <span className="text-[#005BAC] relative font-black">
               Hidden Hunger 
-              <div className="absolute -inset-2 bg-[#1E3A8A]/10 rounded-xl -z-10 transform rotate-1"></div>
+              <div className="absolute -inset-2 bg-[#005BAC]/10 rounded-xl -z-10 transform rotate-1"></div>
             </span> <br />
             in Rwanda
           </h1>
@@ -104,12 +104,12 @@ export default function HomePage() {
             Map nutrition hotspots, predict risks, and develop targeted interventions for Rwanda's communities.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
-            <Button size="lg" className="text-lg px-12 py-6 shadow-xl bg-[#1E3A8A] hover:bg-[#1e40af] text-white transition-all duration-300 transform hover:scale-105 rounded-xl font-bold" asChild>
+            <Button size="lg" className="text-lg px-12 py-6 shadow-xl bg-[#005BAC] hover:bg-[#004a8f] text-white transition-all duration-300 transform hover:scale-105 rounded-xl font-bold" asChild>
               <Link href="/dashboard">
                 Explore Nutrition Dashboard <ArrowRight className="ml-3 h-5 w-5" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-12 py-6 shadow-xl border-2 border-[#1E3A8A] text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white transition-all duration-300 rounded-xl font-bold" asChild>
+            <Button size="lg" variant="outline" className="text-lg px-12 py-6 shadow-xl border-2 border-[#005BAC] text-[#005BAC] hover:bg-[#005BAC] hover:text-white transition-all duration-300 rounded-xl font-bold" asChild>
               <Link href="/data">
                 View Malnutrition Data
               </Link>
@@ -151,9 +151,9 @@ export default function HomePage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="p-6 bg-gray-50 border-2 border-[#1E3A8A]/10 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              <Card key={index} className="p-6 bg-[#E6E8EB] border-2 border-[#005BAC]/10 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <CardHeader className="p-0 mb-6">
-                  <div className="w-14 h-14 bg-[#1E3A8A]/10 rounded-lg flex items-center justify-center mb-4 shadow-sm">
+                  <div className="w-14 h-14 bg-[#005BAC]/10 rounded-lg flex items-center justify-center mb-4 shadow-sm">
                     <feature.icon className={`h-7 w-7 ${feature.color}`} />
                   </div>
                   <CardTitle className="text-xl font-semibold text-gray-900">{feature.title}</CardTitle>
@@ -176,12 +176,12 @@ export default function HomePage() {
       </section>
 
       {/* Impact Section */}
-      <section className="py-24 px-6 bg-gray-50">
+      <section className="py-24 px-6 bg-[#E6E8EB]">
         <div className="container mx-auto max-w-7xl">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-900 tracking-tight">
-                Driving Measurable Impact in <span className="text-[#1E3A8A]">Rwanda's Nutrition Landscape</span>
+                Driving Measurable Impact in <span className="text-[#005BAC]">Rwanda's Nutrition Landscape</span>
               </h2>
               <p className="text-xl text-gray-600 mb-10 leading-relaxed">
                 By leveraging comprehensive datasets from NISR, DHS Rwanda 2020, and agricultural statistics, 
@@ -194,19 +194,19 @@ export default function HomePage() {
                   "Evidence-based recommendations for program optimization"
                 ].map((item, index) => (
                   <div key={index} className="flex items-center gap-4">
-                    <CheckCircle className="h-6 w-6 text-[#1E3A8A]" />
+                    <CheckCircle className="h-6 w-6 text-[#005BAC]" />
                     <span className="text-lg text-gray-700">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div className="relative">
-              <Card className="p-10 bg-gradient-to-br from-[#1E3A8A]/5 to-[#3B82F6]/5 border-2 border-[#1E3A8A]/10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+              <Card className="p-10 bg-gradient-to-br from-[#005BAC]/5 to-[#005BAC]/10 border-2 border-[#005BAC]/10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
                 <div className="text-center">
-                  <Map className="h-20 w-20 text-[#1E3A8A] mx-auto mb-6" />
+                  <Map className="h-20 w-20 text-[#005BAC] mx-auto mb-6" />
                   <h3 className="text-3xl font-bold mb-3 text-gray-900">30 Districts</h3>
                   <p className="text-gray-600 mb-8 text-lg">Comprehensive coverage across Rwanda</p>
-                  <Button variant="outline" className="w-full text-lg px-8 py-4 border-2 border-[#1E3A8A] text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white transition-all duration-300 rounded-xl font-semibold" asChild>
+                  <Button variant="outline" className="w-full text-lg px-8 py-4 border-2 border-[#005BAC] text-[#005BAC] hover:bg-[#005BAC] hover:text-white transition-all duration-300 rounded-xl font-semibold" asChild>
                     <Link href="/data">
                       Explore Geographic Data <ArrowRight className="ml-3 h-5 w-5" />
                     </Link>
@@ -219,7 +219,7 @@ export default function HomePage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-24 px-6 bg-gradient-to-r from-[#1E3A8A]/5 via-white to-[#3B82F6]/5">
+      <section className="py-24 px-6 bg-gradient-to-r from-[#005BAC]/5 via-white to-[#005BAC]/10">
         <div className="container mx-auto text-center max-w-7xl">
           <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-900 tracking-tight">
             Ready to Make a Difference?
@@ -229,12 +229,12 @@ export default function HomePage() {
             AI-powered insights, and evidence-based recommendations to drive meaningful change in your community.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button size="lg" className="text-lg px-12 py-6 shadow-xl bg-[#1E3A8A] hover:bg-[#1e40af] text-white transition-all duration-300 transform hover:scale-105 rounded-xl font-bold" asChild>
+            <Button size="lg" className="text-lg px-12 py-6 shadow-xl bg-[#005BAC] hover:bg-[#004a8f] text-white transition-all duration-300 transform hover:scale-105 rounded-xl font-bold" asChild>
               <Link href="/dashboard">
                 Start Exploring Data <ArrowRight className="ml-3 h-5 w-5" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-12 py-6 shadow-xl border-2 border-[#1E3A8A] text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white transition-all duration-300 rounded-xl font-bold" asChild>
+            <Button size="lg" variant="outline" className="text-lg px-12 py-6 shadow-xl border-2 border-[#005BAC] text-[#005BAC] hover:bg-[#005BAC] hover:text-white transition-all duration-300 rounded-xl font-bold" asChild>
               <Link href="/insights">
                 View AI Insights
               </Link>
