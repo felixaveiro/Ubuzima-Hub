@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+:root {
+  /* Updated to professional Vercel-inspired color system */
+  --background: oklch(0.99 0.005 240);
+  --foreground: oklch(0.15 0.02 240);
+  --card: oklch(69.225% 0.12338 233.425);
+  --card-foreground: oklch(0.15 0.02 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.02 240);
+  --primary: oklch(0.5 0.2 240); /* Professional blue */
+  --primary-foreground: oklch(0.98 0.005 240);
+  --secondary: oklch(0.96 0.01 240);
+  --secondary-foreground: oklch(0.25 0.02 240);
+  --muted: oklch(0.96 0.01 240);
+  --muted-foreground: oklch(0.55 0.02 240);
+  --accent: oklch(0.6 0.15 160); /* Success green */
+  --accent-foreground: oklch(0.98 0.005 240);
+  --destructive: oklch(0.6 0.2 20); /* Warning red */
+  --destructive-foreground: oklch(0.98 0.005 240);
+  --warning: oklch(0.7 0.15 80); /* Warning yellow */
+  --warning-foreground: oklch(0.15 0.02 240);
+  --border: oklch(0.92 0.01 240);
+  --input: oklch(0.92 0.01 240);
+  --ring: oklch(0.5 0.2 240);
+
+  /* Enhanced professional chart color system for data products */
+  --chart-1: oklch(0.5 0.2 240); /* Primary Blue - Agricultural Data */
+  --chart-2: oklch(0.6 0.15 160); /* Success Green - Positive Indicators */
+  --chart-3: oklch(0.6 0.2 20); /* Alert Red - Risk/Malnutrition */
+  --chart-4: oklch(0.7 0.15 80); /* Warning Yellow - Moderate Risk */
+  --chart-5: oklch(0.6 0.15 300); /* Purple - Market Data */
+  --chart-6: oklch(0.65 0.18 200); /* Teal - Nutrition Data */
+  --chart-7: oklch(0.55 0.16 40); /* Orange - Yield Data */
+  --chart-8: oklch(0.45 0.15 280); /* Indigo - Regional Data */
+
+  /* Hero text emphasis colors */
+  --hero-blue: #2563eb; /* Strong blue for "Hidden Hunger" */
+  --hero-blue-hover: #1d4ed8; /* Darker blue for interactions */
+
+  --radius: 0.5rem;
+  --sidebar: oklch(0.98 0.005 240);
+  --sidebar-foreground: oklch(0.15 0.02 240);
+  --sidebar-primary: oklch(0.5 0.2 240);
+  --sidebar-primary-foreground: oklch(0.98 0.005 240);
+  --sidebar-accent: oklch(0.96 0.01 240);
+  --sidebar-accent-foreground: oklch(0.25 0.02 240);
+  --sidebar-border: oklch(0.92 0.01 240);
+  --sidebar-ring: oklch(0.5 0.2 240);
+}
+
+.dark {
+  /* Professional dark theme inspired by Vercel dashboard */
+  --background: oklch(0.05 0.01 240);
+  --foreground: oklch(0.95 0.005 240);
+  --card: oklch(0.08 0.01 240);
+  --card-foreground: oklch(0.95 0.005 240);
+  --popover: oklch(0.08 0.01 240);
+  --popover-foreground: oklch(0.95 0.005 240);
+  --primary: oklch(0.6 0.2 240); /* Bright blue for dark mode */
+  --primary-foreground: oklch(0.05 0.01 240);
+  --secondary: oklch(0.12 0.01 240);
+  --secondary-foreground: oklch(0.95 0.005 240);
+  --muted: oklch(0.12 0.01 240);
+  --muted-foreground: oklch(0.7 0.02 240);
+  --accent: oklch(0.7 0.15 160); /* Bright green for dark mode */
+  --accent-foreground: oklch(0.05 0.01 240);
+  --destructive: oklch(0.7 0.2 20); /* Bright red for dark mode */
+  --destructive-foreground: oklch(0.05 0.01 240);
+  --warning: oklch(0.8 0.15 80); /* Bright yellow for dark mode */
+  --warning-foreground: oklch(0.05 0.01 240);
+  --border: oklch(0.15 0.01 240);
+  --input: oklch(0.15 0.01 240);
+  --ring: oklch(0.6 0.2 240);
+
+  /* Enhanced dark mode chart colors for better contrast */
+  --chart-1: oklch(0.6 0.2 240); /* Bright Blue */
+  --chart-2: oklch(0.7 0.15 160); /* Bright Green */
+  --chart-3: oklch(0.7 0.2 20); /* Bright Red */
+  --chart-4: oklch(0.8 0.15 80); /* Bright Yellow */
+  --chart-5: oklch(0.7 0.15 300); /* Bright Purple */
+  --chart-6: oklch(0.75 0.18 200); /* Bright Teal */
+  --chart-7: oklch(0.65 0.16 40); /* Bright Orange */
+  --chart-8: oklch(0.55 0.15 280); /* Bright Indigo */
+
+  --sidebar: oklch(0.08 0.01 240);
+  --sidebar-foreground: oklch(0.95 0.005 240);
+  --sidebar-primary: oklch(0.6 0.2 240);
+  --sidebar-primary-foreground: oklch(0.05 0.01 240);
+  --sidebar-accent: oklch(0.12 0.01 240);
+  --sidebar-accent-foreground: oklch(0.95 0.005 240);
+  --sidebar-border: oklch(0.15 0.01 240);
+  --sidebar-ring: oklch(0.6 0.2 240);
+}
+
+/* Base styles - moved from @layer base to avoid conflicts */
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Custom navigation hover effects */
+.nav-hover-green:hover {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.nav-active-blue {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Enhanced grid pattern for backgrounds */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
