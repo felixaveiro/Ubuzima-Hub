@@ -28,7 +28,7 @@ export function Navigation() {
             </div>
             <div className="flex flex-col">
               <span className="font-bold text-lg leading-none transition-colors duration-300 group-hover:text-green-600">
-                VitaScope Rwanda
+                ubuzima hub
               </span>
               <span className="text-xs text-muted-foreground leading-none transition-colors duration-300 group-hover:text-green-500">
                 Nutrition Intelligence

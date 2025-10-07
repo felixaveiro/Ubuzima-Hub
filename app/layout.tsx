@@ -30,7 +30,7 @@ export default function RootLayout({
             <div className="container mx-auto px-4 py-8">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-foreground">VitaScope Rwanda</h3>
+                  <h3 className="font-semibold text-foreground">ubuzima hub</h3>
                   <p className="text-sm text-muted-foreground">
                     AI-powered nutrition intelligence for combating hidden hunger and improving food security in Rwanda.
                   </p>
@@ -64,7 +64,7 @@ export default function RootLayout({
                 </div>
               </div>
               <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-                <p>&copy; 2025 VitaScope Rwanda. Empowering nutrition security through data intelligence.</p>
+                <p>&copy; 2025 ubuzima hub. Empowering nutrition security through data intelligence.</p>
               </div>
             </div>
           </footer>

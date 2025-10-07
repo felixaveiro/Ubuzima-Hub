@@ -36,7 +36,7 @@ export function MobileNav() {
                 <TrendingUp className="absolute -top-1 -right-1 h-3 w-3 text-accent" />
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-lg leading-none">VitaScope Rwanda</span>
+                <span className="font-bold text-lg leading-none">Ubuzima hub</span>
                 <span className="text-xs text-muted-foreground leading-none">Nutrition Intelligence</span>
               </div>
             </Link>
@@ -86,7 +86,7 @@ export function MobileNav() {
 
           <div className="mt-auto pt-6 border-t">
             <p className="text-sm text-muted-foreground text-center">
-              VitaScope Rwanda • Ending Hidden Hunger • 2025 Hackathon
+              ubuzima hub • Ending Hidden Hunger • 2025 Hackathon
             </p>
           </div>
         </div>

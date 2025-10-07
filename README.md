@@ -1,10 +1,10 @@
-# VitaScope Rwanda 🇷🇼
+# Ubuzima Hub 🇷🇼
 
 > **AI-Powered Nutrition Intelligence for Combating Hidden Hunger**
 
-VitaScope Rwanda is a comprehensive data analytics platform designed to combat micronutrient deficiencies and malnutrition across Rwanda's 30 districts. Built for Rwanda's 2025 Big Data Hackathon (Track 2: Ending Hidden Hunger), this platform transforms complex nutrition and health datasets into actionable insights for policymakers, healthcare providers, and development organizations.
+Ubuzima Hub is a comprehensive data analytics platform designed to combat micronutrient deficiencies and malnutrition across Rwanda's 30 districts. Built for Rwanda's 2025 Big Data Hackathon (Track 2: Ending Hidden Hunger), this platform transforms complex nutrition and health datasets into actionable insights for policymakers, healthcare providers, and development organizations.
 
-![VitaScope Rwanda Dashboard](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+![Ubuzima Hub Dashboard](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
 ![Next.js](https://img.shields.io/badge/Next.js-14.2.25-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.1.9-38bdf8)
@@ -83,7 +83,7 @@ Our mission is to provide evidence-based insights that enable targeted intervent
 1. **Clone the repository**
   ```bash
   git clone https://github.com/felixaveiro/nutrisight-rwanda.git
-  cd vitascope-rwanda
+  cd ubuzima-hub
   ```
 
 2. **Install dependencies**
@@ -129,7 +129,7 @@ Our mission is to provide evidence-based insights that enable targeted intervent
 ## 📁 Project Structure
 
 ```
-vitascope-rwanda/
+ubuzima-hub/
 ├── app/                          # Next.js App Router
 │   ├── api/                      # API Routes
 │   │   ├── ai-insights/          # AI-powered analysis
@@ -395,8 +395,8 @@ npm run build:css
 ```
 
 ### **Getting Help**
-- **Issues**: [GitHub Issues](https://github.com/felixaveiro/vitascope-rwanda/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/felixaveiro/vitascope-rwanda/discussions)
+- **Issues**: [GitHub Issues](https://github.com/felixaveiro/ubuzima-hub/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/felixaveiro/ubuzima-hub/discussions)
 - **Email**: [felix@vitascope.rw](mailto:felix@vitascope.rw)
 
 ## 📋 Roadmap
