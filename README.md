@@ -82,7 +82,7 @@ Our mission is to provide evidence-based insights that enable targeted intervent
 
 1. **Clone the repository**
   ```bash
-  git clone https://github.com/felixaveiro/nutrisight-rwanda.git
+  git clone https://github.com/felixaveiro/Ubuzima-Hub.git
   cd ubuzima-hub
   ```
 
