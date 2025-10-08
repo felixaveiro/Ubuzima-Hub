@@ -90,7 +90,7 @@ const datasetStats = {
 }
 
 const cropDistribution = [
-  { name: "Maize", value: 35, color: "#3B82F6" },
+  { name: "Maize", value: 35, color: "#005BAC" },
   { name: "Rice", value: 20, color: "#10B981" },
   { name: "Beans", value: 18, color: "#F59E0B" },
   { name: "Potato", value: 15, color: "#8B5CF6" },
@@ -152,10 +152,10 @@ export default function DataExplorer() {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-4 border border-slate-200 rounded-xl shadow-xl">
-          <p className="font-semibold text-slate-900">{`${label}`}</p>
+        <div className="bg-white p-4 border-2 border-gray-200 rounded-xl shadow-2xl">
+          <p className="font-bold text-gray-900">{`${label}`}</p>
           {payload.map((entry: any, index: number) => (
-            <p key={index} style={{ color: entry.color }} className="text-sm">
+            <p key={index} style={{ color: entry.color }} className="text-sm font-medium">
               {`${entry.name}: ${entry.value}${entry.name.includes('Yield') ? ' T/Ha' : entry.name.includes('Area') ? ' Ha' : ''}`}
             </p>
           ))}
@@ -166,35 +166,35 @@ export default function DataExplorer() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40">
+    <div className="min-h-screen bg-[#E6E8EB]">
       {/* Enhanced Navigation Header */}
-      <div className="bg-white/80 backdrop-blur-lg border-b border-slate-200 shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="bg-white border-b-4 border-[#005BAC] shadow-lg sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-                  <Database className="h-6 w-6 text-white" />
+              <div className="flex items-center space-x-4">
+                <div className="w-14 h-14 bg-gradient-to-br from-[#005BAC] to-[#0070cc] rounded-2xl flex items-center justify-center shadow-2xl">
+                  <Database className="h-7 w-7 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                  <h1 className="text-2xl font-bold text-[#005BAC]">
                     NISR Data Explorer
                   </h1>
-                  <p className="text-sm text-slate-600">National Institute of Statistics Rwanda</p>
+                  <p className="text-sm text-gray-600 font-medium">National Institute of Statistics Rwanda</p>
                 </div>
               </div>
             </div>
             <div className="flex items-center space-x-3">
-              <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-300 shadow-sm">
-                <Activity className="h-3 w-3 mr-1 animate-pulse" />
+              <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-2 border-emerald-300 shadow-sm font-semibold">
+                <Activity className="h-3 w-3 mr-2 animate-pulse" />
                 Live Data
               </Badge>
-              <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-300 shadow-sm">
-                <Globe className="h-3 w-3 mr-1" />
+              <Badge variant="outline" className="bg-[#005BAC]/10 text-[#005BAC] border-2 border-[#005BAC]/30 shadow-sm font-semibold">
+                <Globe className="h-3 w-3 mr-2" />
                 Open Access
               </Badge>
-              <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-300 shadow-sm">
-                <Shield className="h-3 w-3 mr-1" />
+              <Badge variant="outline" className="bg-amber-50 text-amber-700 border-2 border-amber-300 shadow-sm font-semibold">
+                <Shield className="h-3 w-3 mr-2" />
                 Verified
               </Badge>
             </div>
@@ -204,66 +204,69 @@ export default function DataExplorer() {
 
       <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
         {/* Enhanced Hero Section */}
-        <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 rounded-3xl p-10 text-white shadow-2xl">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-indigo-600/20 to-purple-600/20"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-white/5 to-transparent rounded-full -mr-48 -mt-48"></div>
-          <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-br from-indigo-500/10 to-transparent rounded-full -ml-36 -mb-36"></div>
+        <div className="relative overflow-hidden bg-gradient-to-br from-[#005BAC] via-[#004a8f] to-[#003366] rounded-3xl p-12 text-white shadow-2xl">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl -mr-48 -mt-48"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -ml-48 -mb-48"></div>
+          </div>
           
           <div className="relative">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
               <div className="lg:col-span-2 space-y-6">
                 <div className="flex items-center space-x-3">
-                  <div className="w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
-                  <span className="text-indigo-200 font-medium text-sm uppercase tracking-wide">
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border-2 border-white/30">
+                    <Globe className="h-6 w-6 text-white" />
+                  </div>
+                  <span className="text-white/90 font-bold text-base uppercase tracking-wide">
                     Comprehensive Data Platform
                   </span>
                 </div>
                 
                 <div className="space-y-4">
-                  <h2 className="text-5xl font-bold leading-tight">
+                  <h2 className="text-6xl font-bold leading-tight">
                     Explore Rwanda's
-                    <span className="block bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                    <span className="block text-emerald-300 mt-2">
                       Data Universe
                     </span>
                   </h2>
-                  <p className="text-slate-300 text-lg leading-relaxed max-w-2xl">
+                  <p className="text-white/90 text-xl leading-relaxed max-w-2xl font-medium">
                     Access, analyze, and download official government datasets from Rwanda's 
                     national surveys and census programs. All data verified and quality-assured by NISR.
                   </p>
                 </div>
                 
                 <div className="flex flex-wrap items-center gap-4">
-                  <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-xl px-4 py-2">
-                    <Calendar className="h-4 w-4 text-blue-400" />
-                    <span className="text-sm text-slate-200">2017-2024 Coverage</span>
+                  <div className="flex items-center space-x-3 bg-white/15 backdrop-blur-sm rounded-xl px-5 py-3 border-2 border-white/20">
+                    <Calendar className="h-5 w-5 text-white" />
+                    <span className="text-sm text-white font-semibold">2017-2024 Coverage</span>
                   </div>
-                  <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-xl px-4 py-2">
-                    <Users className="h-4 w-4 text-purple-400" />
-                    <span className="text-sm text-slate-200">30 Districts</span>
+                  <div className="flex items-center space-x-3 bg-white/15 backdrop-blur-sm rounded-xl px-5 py-3 border-2 border-white/20">
+                    <Users className="h-5 w-5 text-white" />
+                    <span className="text-sm text-white font-semibold">30 Districts</span>
                   </div>
-                  <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-xl px-4 py-2">
-                    <Clock className="h-4 w-4 text-emerald-400" />
-                    <span className="text-sm text-slate-200">Updated Daily</span>
+                  <div className="flex items-center space-x-3 bg-white/15 backdrop-blur-sm rounded-xl px-5 py-3 border-2 border-white/20">
+                    <Clock className="h-5 w-5 text-white" />
+                    <span className="text-sm text-white font-semibold">Updated Daily</span>
                   </div>
                 </div>
               </div>
               
               <div className="space-y-6">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-8 border-2 border-white/20 shadow-xl">
                   <div className="text-center space-y-4">
-                    <div className="text-4xl font-bold text-white">11,080</div>
-                    <div className="text-slate-300 text-sm uppercase tracking-wide">Total Records</div>
+                    <div className="text-5xl font-bold text-white">11,080</div>
+                    <div className="text-white/80 text-sm uppercase tracking-widest font-semibold">Total Records</div>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                    <div className="text-2xl font-bold text-emerald-400">76.3MB</div>
-                    <div className="text-slate-300 text-xs">Dataset Size</div>
+                  <div className="bg-white/15 backdrop-blur-sm rounded-xl p-5 border-2 border-white/20">
+                    <div className="text-3xl font-bold text-emerald-300">76.3MB</div>
+                    <div className="text-white/80 text-xs font-semibold">Dataset Size</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                    <div className="text-2xl font-bold text-blue-400">2.8K</div>
-                    <div className="text-slate-300 text-xs">Downloads</div>
+                  <div className="bg-white/15 backdrop-blur-sm rounded-xl p-5 border-2 border-white/20">
+                    <div className="text-3xl font-bold text-emerald-300">2.8K</div>
+                    <div className="text-white/80 text-xs font-semibold">Downloads</div>
                   </div>
                 </div>
               </div>
@@ -273,156 +276,156 @@ export default function DataExplorer() {
 
         {/* Enhanced Dataset Overview Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <Card className="group hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-blue-100 bg-gradient-to-br from-blue-50 via-white to-indigo-50 overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-600/10 to-transparent rounded-full -mr-16 -mt-16"></div>
+          <Card className="group hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-[#005BAC]/20 bg-white overflow-hidden rounded-2xl">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#005BAC]/10 to-transparent rounded-full -mr-16 -mt-16"></div>
             <CardHeader className="pb-4 relative">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
-                  <BarChart3 className="h-7 w-7 text-white" />
+                <div className="w-16 h-16 bg-gradient-to-br from-[#005BAC] to-[#0070cc] rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-200">
+                  <BarChart3 className="h-8 w-8 text-white" />
                 </div>
-                <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                <Badge variant="outline" className="bg-[#005BAC]/10 text-[#005BAC] border-2 border-[#005BAC]/20 font-bold">
                   Primary Dataset
                 </Badge>
               </div>
-              <CardTitle className="text-xl font-bold text-slate-900 mb-2">Agricultural Survey</CardTitle>
-              <CardDescription className="text-slate-600 leading-relaxed">
+              <CardTitle className="text-xl font-bold text-[#005BAC] mb-2">Agricultural Survey</CardTitle>
+              <CardDescription className="text-gray-700 leading-relaxed font-medium">
                 Comprehensive household agricultural survey covering crop production, livestock, and farming practices across all 30 districts
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl p-4 border border-slate-100">
-                  <div className="text-2xl font-bold text-blue-600">{datasetStats.agricultural.records.toLocaleString()}</div>
-                  <div className="text-sm text-slate-600">Records</div>
+                <div className="bg-[#E6E8EB] rounded-xl p-4 border-2 border-gray-200">
+                  <div className="text-2xl font-bold text-[#005BAC]">{datasetStats.agricultural.records.toLocaleString()}</div>
+                  <div className="text-sm text-gray-700 font-semibold">Records</div>
                 </div>
-                <div className="bg-gradient-to-r from-slate-50 to-indigo-50 rounded-xl p-4 border border-slate-100">
-                  <div className="text-2xl font-bold text-indigo-600">{datasetStats.agricultural.size}</div>
-                  <div className="text-sm text-slate-600">File Size</div>
+                <div className="bg-[#E6E8EB] rounded-xl p-4 border-2 border-gray-200">
+                  <div className="text-2xl font-bold text-[#005BAC]">{datasetStats.agricultural.size}</div>
+                  <div className="text-sm text-gray-700 font-semibold">File Size</div>
                 </div>
               </div>
               
               <div className="flex items-center justify-between pt-2">
-                <div className="flex items-center space-x-2 text-sm text-slate-500">
+                <div className="flex items-center space-x-2 text-sm text-gray-600 font-medium">
                   <Calendar className="h-4 w-4" />
                   <span>Updated {datasetStats.agricultural.lastUpdate}</span>
                 </div>
-                <div className="flex items-center space-x-1 text-sm text-slate-500">
+                <div className="flex items-center space-x-1 text-sm text-gray-600 font-semibold">
                   <Download className="h-3 w-3" />
                   <span>{datasetStats.agricultural.downloads}</span>
                 </div>
               </div>
               
               <div className="flex space-x-2 pt-2">
-                <Button size="sm" variant="outline" className="flex-1 h-9 rounded-xl border-slate-200 hover:bg-blue-50">
-                  <Eye className="h-3 w-3 mr-1" />
+                <Button size="sm" variant="outline" className="flex-1 h-10 rounded-xl border-2 border-gray-300 hover:bg-[#005BAC]/10 font-semibold">
+                  <Eye className="h-4 w-4 mr-2" />
                   View
                 </Button>
-                <Button size="sm" variant="outline" className="flex-1 h-9 rounded-xl border-slate-200 hover:bg-indigo-50">
-                  <Download className="h-3 w-3 mr-1" />
+                <Button size="sm" variant="outline" className="flex-1 h-10 rounded-xl border-2 border-gray-300 hover:bg-[#005BAC]/10 font-semibold">
+                  <Download className="h-4 w-4 mr-2" />
                   Export
                 </Button>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="group hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-green-50 overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-600/10 to-transparent rounded-full -mr-16 -mt-16"></div>
+          <Card className="group hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-emerald-200 bg-white overflow-hidden rounded-2xl">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-400/10 to-transparent rounded-full -mr-16 -mt-16"></div>
             <CardHeader className="pb-4 relative">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-14 h-14 bg-gradient-to-br from-emerald-600 to-green-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
-                  <Activity className="h-7 w-7 text-white" />
+                <div className="w-16 h-16 bg-gradient-to-br from-emerald-600 to-green-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-200">
+                  <Activity className="h-8 w-8 text-white" />
                 </div>
-                <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
+                <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-2 border-emerald-200 font-bold">
                   Health Data
                 </Badge>
               </div>
-              <CardTitle className="text-xl font-bold text-slate-900 mb-2">Nutrition Indicators</CardTitle>
-              <CardDescription className="text-slate-600 leading-relaxed">
+              <CardTitle className="text-xl font-bold text-emerald-700 mb-2">Nutrition Indicators</CardTitle>
+              <CardDescription className="text-gray-700 leading-relaxed font-medium">
                 Child malnutrition, food security, and dietary diversity indicators from national health surveys and DHS programs
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gradient-to-r from-slate-50 to-emerald-50 rounded-xl p-4 border border-slate-100">
-                  <div className="text-2xl font-bold text-emerald-600">{datasetStats.nutrition.records.toLocaleString()}</div>
-                  <div className="text-sm text-slate-600">Records</div>
+                <div className="bg-emerald-50 rounded-xl p-4 border-2 border-emerald-200">
+                  <div className="text-2xl font-bold text-emerald-700">{datasetStats.nutrition.records.toLocaleString()}</div>
+                  <div className="text-sm text-gray-700 font-semibold">Records</div>
                 </div>
-                <div className="bg-gradient-to-r from-slate-50 to-green-50 rounded-xl p-4 border border-slate-100">
-                  <div className="text-2xl font-bold text-green-600">{datasetStats.nutrition.size}</div>
-                  <div className="text-sm text-slate-600">File Size</div>
+                <div className="bg-emerald-50 rounded-xl p-4 border-2 border-emerald-200">
+                  <div className="text-2xl font-bold text-emerald-700">{datasetStats.nutrition.size}</div>
+                  <div className="text-sm text-gray-700 font-semibold">File Size</div>
                 </div>
               </div>
               
               <div className="flex items-center justify-between pt-2">
-                <div className="flex items-center space-x-2 text-sm text-slate-500">
+                <div className="flex items-center space-x-2 text-sm text-gray-600 font-medium">
                   <Calendar className="h-4 w-4" />
                   <span>Updated {datasetStats.nutrition.lastUpdate}</span>
                 </div>
-                <div className="flex items-center space-x-1 text-sm text-slate-500">
+                <div className="flex items-center space-x-1 text-sm text-gray-600 font-semibold">
                   <Download className="h-3 w-3" />
                   <span>{datasetStats.nutrition.downloads}</span>
                 </div>
               </div>
               
               <div className="flex space-x-2 pt-2">
-                <Button size="sm" variant="outline" className="flex-1 h-9 rounded-xl border-slate-200 hover:bg-emerald-50">
-                  <Eye className="h-3 w-3 mr-1" />
+                <Button size="sm" variant="outline" className="flex-1 h-10 rounded-xl border-2 border-gray-300 hover:bg-emerald-50 font-semibold">
+                  <Eye className="h-4 w-4 mr-2" />
                   View
                 </Button>
-                <Button size="sm" variant="outline" className="flex-1 h-9 rounded-xl border-slate-200 hover:bg-green-50">
-                  <Download className="h-3 w-3 mr-1" />
+                <Button size="sm" variant="outline" className="flex-1 h-10 rounded-xl border-2 border-gray-300 hover:bg-emerald-50 font-semibold">
+                  <Download className="h-4 w-4 mr-2" />
                   Export
                 </Button>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="group hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-amber-100 bg-gradient-to-br from-amber-50 via-white to-orange-50 overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-600/10 to-transparent rounded-full -mr-16 -mt-16"></div>
+          <Card className="group hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-amber-200 bg-white overflow-hidden rounded-2xl">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-400/10 to-transparent rounded-full -mr-16 -mt-16"></div>
             <CardHeader className="pb-4 relative">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-14 h-14 bg-gradient-to-br from-amber-600 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
-                  <TrendingUp className="h-7 w-7 text-white" />
+                <div className="w-16 h-16 bg-gradient-to-br from-amber-600 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-200">
+                  <TrendingUp className="h-8 w-8 text-white" />
                 </div>
-                <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">
+                <Badge variant="outline" className="bg-amber-50 text-amber-700 border-2 border-amber-200 font-bold">
                   Economic Data
                 </Badge>
               </div>
-              <CardTitle className="text-xl font-bold text-slate-900 mb-2">Market Analysis</CardTitle>
-              <CardDescription className="text-slate-600 leading-relaxed">
+              <CardTitle className="text-xl font-bold text-amber-700 mb-2">Market Analysis</CardTitle>
+              <CardDescription className="text-gray-700 leading-relaxed font-medium">
                 Commodity prices, market trends, and trade flow data from national market information systems and trading centers
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gradient-to-r from-slate-50 to-amber-50 rounded-xl p-4 border border-slate-100">
-                  <div className="text-2xl font-bold text-amber-600">{datasetStats.market.records.toLocaleString()}</div>
-                  <div className="text-sm text-slate-600">Records</div>
+                <div className="bg-amber-50 rounded-xl p-4 border-2 border-amber-200">
+                  <div className="text-2xl font-bold text-amber-700">{datasetStats.market.records.toLocaleString()}</div>
+                  <div className="text-sm text-gray-700 font-semibold">Records</div>
                 </div>
-                <div className="bg-gradient-to-r from-slate-50 to-orange-50 rounded-xl p-4 border border-slate-100">
-                  <div className="text-2xl font-bold text-orange-600">{datasetStats.market.size}</div>
-                  <div className="text-sm text-slate-600">File Size</div>
+                <div className="bg-amber-50 rounded-xl p-4 border-2 border-amber-200">
+                  <div className="text-2xl font-bold text-amber-700">{datasetStats.market.size}</div>
+                  <div className="text-sm text-gray-700 font-semibold">File Size</div>
                 </div>
               </div>
               
               <div className="flex items-center justify-between pt-2">
-                <div className="flex items-center space-x-2 text-sm text-slate-500">
+                <div className="flex items-center space-x-2 text-sm text-gray-600 font-medium">
                   <Calendar className="h-4 w-4" />
                   <span>Updated {datasetStats.market.lastUpdate}</span>
                 </div>
-                <div className="flex items-center space-x-1 text-sm text-slate-500">
+                <div className="flex items-center space-x-1 text-sm text-gray-600 font-semibold">
                   <Download className="h-3 w-3" />
                   <span>{datasetStats.market.downloads}</span>
                 </div>
               </div>
               
               <div className="flex space-x-2 pt-2">
-                <Button size="sm" variant="outline" className="flex-1 h-9 rounded-xl border-slate-200 hover:bg-amber-50">
-                  <Eye className="h-3 w-3 mr-1" />
+                <Button size="sm" variant="outline" className="flex-1 h-10 rounded-xl border-2 border-gray-300 hover:bg-amber-50 font-semibold">
+                  <Eye className="h-4 w-4 mr-2" />
                   View
                 </Button>
-                <Button size="sm" variant="outline" className="flex-1 h-9 rounded-xl border-slate-200 hover:bg-orange-50">
-                  <Download className="h-3 w-3 mr-1" />
+                <Button size="sm" variant="outline" className="flex-1 h-10 rounded-xl border-2 border-gray-300 hover:bg-amber-50 font-semibold">
+                  <Download className="h-4 w-4 mr-2" />
                   Export
                 </Button>
               </div>
@@ -431,97 +434,97 @@ export default function DataExplorer() {
         </div>
 
         {/* Quick Stats Overview */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200 shadow-lg">
-            <div className="flex items-center justify-between mb-2">
-              <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-                <Users className="h-5 w-5 text-blue-600" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="bg-white rounded-2xl p-6 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-12 h-12 bg-[#005BAC]/10 rounded-xl flex items-center justify-center">
+                <Users className="h-6 w-6 text-[#005BAC]" />
               </div>
-              <ArrowUpRight className="h-4 w-4 text-emerald-500" />
+              <ArrowUpRight className="h-5 w-5 text-emerald-500" />
             </div>
-            <div className="text-2xl font-bold text-slate-900">2,370</div>
-            <div className="text-sm text-slate-600">Active Farmers</div>
+            <div className="text-3xl font-bold text-gray-900">2,370</div>
+            <div className="text-sm text-gray-600 font-semibold">Active Farmers</div>
           </div>
           
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200 shadow-lg">
-            <div className="flex items-center justify-between mb-2">
-              <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
-                <BarChart3 className="h-5 w-5 text-emerald-600" />
+          <div className="bg-white rounded-2xl p-6 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                <BarChart3 className="h-6 w-6 text-emerald-600" />
               </div>
-              <ArrowUpRight className="h-4 w-4 text-emerald-500" />
+              <ArrowUpRight className="h-5 w-5 text-emerald-500" />
             </div>
-            <div className="text-2xl font-bold text-slate-900">14,540</div>
-            <div className="text-sm text-slate-600">Total Hectares</div>
+            <div className="text-3xl font-bold text-gray-900">14,540</div>
+            <div className="text-sm text-gray-600 font-semibold">Total Hectares</div>
           </div>
           
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200 shadow-lg">
-            <div className="flex items-center justify-between mb-2">
-              <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
-                <TrendingUp className="h-5 w-5 text-amber-600" />
+          <div className="bg-white rounded-2xl p-6 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+                <TrendingUp className="h-6 w-6 text-amber-600" />
               </div>
-              <ArrowUpRight className="h-4 w-4 text-emerald-500" />
+              <ArrowUpRight className="h-5 w-5 text-emerald-500" />
             </div>
-            <div className="text-2xl font-bold text-slate-900">91,313</div>
-            <div className="text-sm text-slate-600">Total Production (MT)</div>
+            <div className="text-3xl font-bold text-gray-900">91,313</div>
+            <div className="text-sm text-gray-600 font-semibold">Total Production (MT)</div>
           </div>
           
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200 shadow-lg">
-            <div className="flex items-center justify-between mb-2">
-              <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
-                <Globe className="h-5 w-5 text-purple-600" />
+          <div className="bg-white rounded-2xl p-6 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                <Globe className="h-6 w-6 text-purple-600" />
               </div>
-              <ArrowUpRight className="h-4 w-4 text-emerald-500" />
+              <ArrowUpRight className="h-5 w-5 text-emerald-500" />
             </div>
-            <div className="text-2xl font-bold text-slate-900">30</div>
-            <div className="text-sm text-slate-600">Districts Covered</div>
+            <div className="text-3xl font-bold text-gray-900">30</div>
+            <div className="text-sm text-gray-600 font-semibold">Districts Covered</div>
           </div>
         </div>
 
         {/* Enhanced Data Explorer Interface */}
-        <Card className="border border-slate-200 bg-white shadow-2xl rounded-3xl overflow-hidden">
+        <Card className="border-2 border-gray-200 bg-white shadow-2xl rounded-3xl overflow-hidden">
           <Tabs defaultValue="agricultural" className="w-full">
-            <div className="bg-gradient-to-r from-slate-50 via-blue-50/30 to-indigo-50/30 border-b border-slate-200 p-8">
+            <div className="bg-[#E6E8EB] border-b-2 border-gray-200 p-8">
               <div className="flex items-center justify-between mb-6">
                 <div className="space-y-2">
-                  <h3 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                  <h3 className="text-3xl font-bold text-[#005BAC]">
                     Interactive Data Explorer
                   </h3>
-                  <p className="text-slate-600">Explore, filter, and analyze Rwanda's official datasets with advanced visualization tools</p>
+                  <p className="text-gray-700 font-medium">Explore, filter, and analyze Rwanda's official datasets with advanced visualization tools</p>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Button variant="outline" size="sm" className="h-10 px-4 rounded-xl">
+                  <Button variant="outline" size="sm" className="h-11 px-5 rounded-xl border-2 border-gray-300 hover:bg-white font-semibold">
                     <Share2 className="h-4 w-4 mr-2" />
                     Share View
                   </Button>
-                  <Button variant="outline" size="sm" className="h-10 px-4 rounded-xl">
+                  <Button variant="outline" size="sm" className="h-11 px-5 rounded-xl border-2 border-gray-300 hover:bg-white font-semibold">
                     <RefreshCw className="h-4 w-4 mr-2" />
                     Refresh
                   </Button>
-                  <Button variant="outline" size="sm" className="h-10 px-4 rounded-xl">
+                  <Button variant="outline" size="sm" className="h-11 px-5 rounded-xl border-2 border-gray-300 hover:bg-white font-semibold">
                     <Download className="h-4 w-4 mr-2" />
                     Export All
                   </Button>
                 </div>
               </div>
               
-              <TabsList className="grid w-full grid-cols-3 bg-white rounded-2xl p-2 shadow-lg border border-slate-200">
+              <TabsList className="grid w-full grid-cols-3 bg-white rounded-2xl p-2 shadow-lg border-2 border-gray-200">
                 <TabsTrigger
                   value="agricultural"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white data-[state=active]:shadow-lg rounded-xl px-6 py-4 text-sm font-semibold transition-all duration-300"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#005BAC] data-[state=active]:to-[#0070cc] data-[state=active]:text-white data-[state=active]:shadow-xl rounded-xl px-6 py-4 text-sm font-bold transition-all duration-300"
                 >
                   <BarChart3 className="h-4 w-4 mr-2" />
                   Agricultural Data
                 </TabsTrigger>
                 <TabsTrigger
                   value="nutrition"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-600 data-[state=active]:to-green-600 data-[state=active]:text-white data-[state=active]:shadow-lg rounded-xl px-6 py-4 text-sm font-semibold transition-all duration-300"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-600 data-[state=active]:to-green-600 data-[state=active]:text-white data-[state=active]:shadow-xl rounded-xl px-6 py-4 text-sm font-bold transition-all duration-300"
                 >
                   <Activity className="h-4 w-4 mr-2" />
                   Nutrition Data
                 </TabsTrigger>
                 <TabsTrigger
                   value="markets"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-600 data-[state=active]:to-orange-600 data-[state=active]:text-white data-[state=active]:shadow-lg rounded-xl px-6 py-4 text-sm font-semibold transition-all duration-300"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-600 data-[state=active]:to-orange-600 data-[state=active]:text-white data-[state=active]:shadow-xl rounded-xl px-6 py-4 text-sm font-bold transition-all duration-300"
                 >
                   <TrendingUp className="h-4 w-4 mr-2" />
                   Market Data
@@ -531,15 +534,15 @@ export default function DataExplorer() {
 
             <TabsContent value="agricultural" className="p-8 space-y-8">
               {/* Enhanced Filters */}
-              <Card className="bg-gradient-to-r from-slate-50 to-blue-50 border-2 border-slate-200 shadow-lg">
+              <Card className="bg-[#E6E8EB]/50 border-2 border-gray-200 shadow-lg rounded-2xl">
                 <CardHeader className="pb-4">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                      <Filter className="h-5 w-5 text-white" />
+                    <div className="w-12 h-12 bg-gradient-to-r from-[#005BAC] to-[#0070cc] rounded-xl flex items-center justify-center shadow-lg">
+                      <Filter className="h-6 w-6 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-xl font-bold text-slate-900">Data Filters & Controls</CardTitle>
-                      <CardDescription className="text-slate-600">
+                      <CardTitle className="text-xl font-bold text-[#005BAC]">Data Filters & Controls</CardTitle>
+                      <CardDescription className="text-gray-700 font-medium">
                         Customize your data view with advanced filtering options
                       </CardDescription>
                     </div>
@@ -548,17 +551,17 @@ export default function DataExplorer() {
                 <CardContent>
                   <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
                     <div className="lg:col-span-2 relative">
-                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                       <Input
                         placeholder="Search districts, crops, or keywords..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-12 h-12 bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500 rounded-xl shadow-sm"
+                        className="pl-12 h-14 bg-white border-2 border-gray-300 focus:border-[#005BAC] focus:ring-[#005BAC] rounded-xl shadow-sm font-medium"
                       />
                     </div>
 
                     <Select value={selectedDistrict} onValueChange={setSelectedDistrict}>
-                      <SelectTrigger className="h-12 bg-white border-slate-300 rounded-xl shadow-sm">
+                      <SelectTrigger className="h-14 bg-white border-2 border-gray-300 rounded-xl shadow-sm font-medium">
                         <SelectValue placeholder="Select District" />
                       </SelectTrigger>
                       <SelectContent>
@@ -575,7 +578,7 @@ export default function DataExplorer() {
                     </Select>
 
                     <Select value={selectedCrop} onValueChange={setSelectedCrop}>
-                      <SelectTrigger className="h-12 bg-white border-slate-300 rounded-xl shadow-sm">
+                      <SelectTrigger className="h-14 bg-white border-2 border-gray-300 rounded-xl shadow-sm font-medium">
                         <SelectValue placeholder="Select Crop" />
                       </SelectTrigger>
                       <SelectContent>
@@ -592,7 +595,7 @@ export default function DataExplorer() {
                       <Button 
                         onClick={() => downloadData("CSV")} 
                         variant="outline" 
-                        className="flex-1 h-12 rounded-xl border-slate-300 hover:bg-blue-50 shadow-sm"
+                        className="flex-1 h-14 rounded-xl border-2 border-gray-300 hover:bg-[#005BAC]/10 shadow-sm font-semibold"
                         disabled={isLoading}
                       >
                         {isLoading ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : <Download className="h-4 w-4 mr-2" />}
@@ -601,7 +604,7 @@ export default function DataExplorer() {
                       <Button 
                         onClick={() => downloadData("JSON")} 
                         variant="outline"
-                        className="flex-1 h-12 rounded-xl border-slate-300 hover:bg-indigo-50 shadow-sm"
+                        className="flex-1 h-14 rounded-xl border-2 border-gray-300 hover:bg-[#005BAC]/10 shadow-sm font-semibold"
                         disabled={isLoading}
                       >
                         {isLoading ? <RefreshCw className="h-4 w-4 mr-2 animate-spin" /> : <Download className="h-4 w-4 mr-2" />}
@@ -611,14 +614,14 @@ export default function DataExplorer() {
                   </div>
                   
                   <div className="mt-6 flex items-center justify-between text-sm">
-                    <div className="flex items-center space-x-4 text-slate-600">
-                      <span className="font-medium">
+                    <div className="flex items-center space-x-4 text-gray-700">
+                      <span className="font-bold">
                         Showing {filteredData.length} of {agriculturalSurveyData.length} records
                       </span>
-                      <Badge variant="outline" className="bg-white border-blue-200 text-blue-700">
+                      <Badge variant="outline" className="bg-white border-2 border-[#005BAC]/20 text-[#005BAC] font-semibold">
                         2023A Season
                       </Badge>
-                      <Badge variant="outline" className="bg-white border-emerald-200 text-emerald-700">
+                      <Badge variant="outline" className="bg-white border-2 border-emerald-200 text-emerald-700 font-semibold">
                         <Activity className="h-3 w-3 mr-1" />
                         Live Data
                       </Badge>
@@ -626,10 +629,10 @@ export default function DataExplorer() {
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      className="text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg"
+                      className="text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg font-semibold"
                       onClick={resetFilters}
                     >
-                      <RefreshCw className="h-3 w-3 mr-1" />
+                      <RefreshCw className="h-4 w-4 mr-2" />
                       Reset Filters
                     </Button>
                   </div>
@@ -638,17 +641,17 @@ export default function DataExplorer() {
 
               {/* Data Visualization Cards */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Card className="shadow-lg border border-slate-200 bg-white">
+                <Card className="shadow-xl border-2 border-gray-200 bg-white rounded-2xl">
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle className="text-lg font-bold text-slate-900">Crop Distribution</CardTitle>
-                        <CardDescription className="text-slate-600">
+                        <CardTitle className="text-lg font-bold text-gray-900">Crop Distribution</CardTitle>
+                        <CardDescription className="text-gray-600 font-medium">
                           Distribution of crops by cultivated area
                         </CardDescription>
                       </div>
-                      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <BarChart3 className="h-4 w-4 text-blue-600" />
+                      <div className="w-10 h-10 bg-[#005BAC]/10 rounded-xl flex items-center justify-center">
+                        <BarChart3 className="h-5 w-5 text-[#005BAC]" />
                       </div>
                     </div>
                   </CardHeader>
@@ -676,17 +679,17 @@ export default function DataExplorer() {
                   </CardContent>
                 </Card>
 
-                <Card className="shadow-lg border border-slate-200 bg-white">
+                <Card className="shadow-xl border-2 border-gray-200 bg-white rounded-2xl">
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div>
-                        <CardTitle className="text-lg font-bold text-slate-900">Yield Trends</CardTitle>
-                        <CardDescription className="text-slate-600">
+                        <CardTitle className="text-lg font-bold text-gray-900">Yield Trends</CardTitle>
+                        <CardDescription className="text-gray-600 font-medium">
                           4-year yield performance by crop type
                         </CardDescription>
                       </div>
-                      <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                        <TrendingUp className="h-4 w-4 text-emerald-600" />
+                      <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
+                        <TrendingUp className="h-5 w-5 text-emerald-600" />
                       </div>
                     </div>
                   </CardHeader>
@@ -694,14 +697,14 @@ export default function DataExplorer() {
                     <div className="h-64">
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={yieldTrends}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                          <XAxis dataKey="year" stroke="#64748b" />
-                          <YAxis stroke="#64748b" />
+                          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                          <XAxis dataKey="year" stroke="#6b7280" fontWeight={600} />
+                          <YAxis stroke="#6b7280" fontWeight={600} />
                           <Tooltip content={<CustomTooltip />} />
-                          <Line type="monotone" dataKey="maize" stroke="#3b82f6" strokeWidth={3} dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }} />
-                          <Line type="monotone" dataKey="rice" stroke="#10b981" strokeWidth={3} dot={{ fill: '#10b981', strokeWidth: 2, r: 4 }} />
-                          <Line type="monotone" dataKey="beans" stroke="#f59e0b" strokeWidth={3} dot={{ fill: '#f59e0b', strokeWidth: 2, r: 4 }} />
-                          <Line type="monotone" dataKey="potato" stroke="#8b5cf6" strokeWidth={3} dot={{ fill: '#8b5cf6', strokeWidth: 2, r: 4 }} />
+                          <Line type="monotone" dataKey="maize" stroke="#005BAC" strokeWidth={3} dot={{ fill: '#005BAC', strokeWidth: 2, r: 5 }} />
+                          <Line type="monotone" dataKey="rice" stroke="#10b981" strokeWidth={3} dot={{ fill: '#10b981', strokeWidth: 2, r: 5 }} />
+                          <Line type="monotone" dataKey="beans" stroke="#f59e0b" strokeWidth={3} dot={{ fill: '#f59e0b', strokeWidth: 2, r: 5 }} />
+                          <Line type="monotone" dataKey="potato" stroke="#8b5cf6" strokeWidth={3} dot={{ fill: '#8b5cf6', strokeWidth: 2, r: 5 }} />
                         </LineChart>
                       </ResponsiveContainer>
                     </div>
@@ -710,22 +713,22 @@ export default function DataExplorer() {
               </div>
 
               {/* Enhanced Data Table */}
-              <Card className="shadow-2xl border border-slate-200 bg-white">
-                <CardHeader className="bg-gradient-to-r from-white via-blue-50/30 to-indigo-50/30 border-b border-slate-200">
+              <Card className="shadow-2xl border-2 border-gray-200 bg-white rounded-2xl">
+                <CardHeader className="bg-[#E6E8EB]/50 border-b-2 border-gray-200">
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-2xl font-bold text-slate-900">Agricultural Survey Dataset</CardTitle>
-                      <CardDescription className="text-slate-600 mt-2">
+                      <CardTitle className="text-2xl font-bold text-[#005BAC]">Agricultural Survey Dataset</CardTitle>
+                      <CardDescription className="text-gray-700 mt-2 font-medium">
                         Comprehensive crop production data from the 2023A agricultural season across all districts
                       </CardDescription>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <div className="flex bg-slate-100 rounded-lg p-1">
+                      <div className="flex bg-white rounded-xl p-1.5 border-2 border-gray-200">
                         <Button
                           variant={viewMode === "table" ? "default" : "ghost"}
                           size="sm"
                           onClick={() => setViewMode("table")}
-                          className="h-8 px-3 rounded-md"
+                          className="h-9 px-4 rounded-lg font-semibold"
                         >
                           Table
                         </Button>
@@ -733,16 +736,16 @@ export default function DataExplorer() {
                           variant={viewMode === "chart" ? "default" : "ghost"}
                           size="sm"
                           onClick={() => setViewMode("chart")}
-                          className="h-8 px-3 rounded-md"
+                          className="h-9 px-4 rounded-lg font-semibold"
                         >
                           Chart
                         </Button>
                       </div>
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                      <Badge variant="outline" className="bg-[#005BAC]/10 text-[#005BAC] border-2 border-[#005BAC]/20 font-bold">
                         <Database className="h-3 w-3 mr-1" />
                         NISR Verified
                       </Badge>
-                      <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
+                      <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-2 border-emerald-200 font-bold">
                         <Shield className="h-3 w-3 mr-1" />
                         Quality Assured
                       </Badge>
@@ -753,42 +756,42 @@ export default function DataExplorer() {
                   {viewMode === "table" ? (
                     <div className="overflow-x-auto">
                       <table className="w-full">
-                        <thead className="bg-slate-50 border-b border-slate-200">
+                        <thead className="bg-[#E6E8EB] border-b-2 border-gray-200">
                           <tr>
-                            <th className="text-left py-4 px-6 font-semibold text-slate-700">District</th>
-                            <th className="text-left py-4 px-6 font-semibold text-slate-700">Crop Type</th>
-                            <th className="text-left py-4 px-6 font-semibold text-slate-700">Area (Ha)</th>
-                            <th className="text-left py-4 px-6 font-semibold text-slate-700">Yield (T/Ha)</th>
-                            <th className="text-left py-4 px-6 font-semibold text-slate-700">Farmers</th>
-                            <th className="text-left py-4 px-6 font-semibold text-slate-700">Production (MT)</th>
-                            <th className="text-left py-4 px-6 font-semibold text-slate-700">Season</th>
+                            <th className="text-left py-4 px-6 font-bold text-gray-800">District</th>
+                            <th className="text-left py-4 px-6 font-bold text-gray-800">Crop Type</th>
+                            <th className="text-left py-4 px-6 font-bold text-gray-800">Area (Ha)</th>
+                            <th className="text-left py-4 px-6 font-bold text-gray-800">Yield (T/Ha)</th>
+                            <th className="text-left py-4 px-6 font-bold text-gray-800">Farmers</th>
+                            <th className="text-left py-4 px-6 font-bold text-gray-800">Production (MT)</th>
+                            <th className="text-left py-4 px-6 font-bold text-gray-800">Season</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-200">
+                        <tbody className="divide-y-2 divide-gray-200">
                           {filteredData.map((item, index) => (
-                            <tr key={item.id} className={`hover:bg-slate-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-slate-25'}`}>
+                            <tr key={item.id} className={`hover:bg-[#E6E8EB]/30 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                               <td className="py-4 px-6">
                                 <div className="flex items-center space-x-2">
-                                  <MapPin className="h-4 w-4 text-slate-400" />
-                                  <span className="font-medium text-slate-900">{item.district}</span>
+                                  <MapPin className="h-4 w-4 text-[#005BAC]" />
+                                  <span className="font-bold text-gray-900">{item.district}</span>
                                 </div>
                               </td>
                               <td className="py-4 px-6">
-                                <Badge variant="outline" className="bg-slate-50 text-slate-700 border-slate-300">
+                                <Badge variant="outline" className="bg-gray-50 text-gray-800 border-2 border-gray-300 font-semibold">
                                   {item.crop}
                                 </Badge>
                               </td>
-                              <td className="py-4 px-6 text-slate-700 font-medium">{item.area.toLocaleString()}</td>
-                              <td className="py-4 px-6 text-slate-700 font-medium">{item.yield}</td>
+                              <td className="py-4 px-6 text-gray-800 font-bold">{item.area.toLocaleString()}</td>
+                              <td className="py-4 px-6 text-gray-800 font-bold">{item.yield}</td>
                               <td className="py-4 px-6">
                                 <div className="flex items-center space-x-2">
-                                  <Users className="h-4 w-4 text-slate-400" />
-                                  <span className="text-slate-700 font-medium">{item.farmers}</span>
+                                  <Users className="h-4 w-4 text-gray-500" />
+                                  <span className="text-gray-800 font-bold">{item.farmers}</span>
                                 </div>
                               </td>
-                              <td className="py-4 px-6 text-slate-700 font-medium">{item.production.toLocaleString()}</td>
+                              <td className="py-4 px-6 text-gray-800 font-bold">{item.production.toLocaleString()}</td>
                               <td className="py-4 px-6">
-                                <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                                <Badge variant="outline" className="bg-[#005BAC]/10 text-[#005BAC] border-2 border-[#005BAC]/20 font-semibold">
                                   {item.season}
                                 </Badge>
                               </td>
@@ -802,12 +805,12 @@ export default function DataExplorer() {
                       <div className="h-96">
                         <ResponsiveContainer width="100%" height="100%">
                           <BarChart data={filteredData}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                            <XAxis dataKey="district" stroke="#64748b" />
-                            <YAxis stroke="#64748b" />
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                            <XAxis dataKey="district" stroke="#6b7280" fontWeight={600} />
+                            <YAxis stroke="#6b7280" fontWeight={600} />
                             <Tooltip content={<CustomTooltip />} />
-                            <Bar dataKey="area" fill="#3b82f6" name="Area (Ha)" radius={[4, 4, 0, 0]} />
-                            <Bar dataKey="production" fill="#10b981" name="Production (MT)" radius={[4, 4, 0, 0]} />
+                            <Bar dataKey="area" fill="#005BAC" name="Area (Ha)" radius={[6, 6, 0, 0]} />
+                            <Bar dataKey="production" fill="#10b981" name="Production (MT)" radius={[6, 6, 0, 0]} />
                           </BarChart>
                         </ResponsiveContainer>
                       </div>
@@ -817,17 +820,17 @@ export default function DataExplorer() {
               </Card>
 
               {/* Productivity Analysis */}
-              <Card className="shadow-lg border border-slate-200 bg-white">
+              <Card className="shadow-xl border-2 border-gray-200 bg-white rounded-2xl">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-xl font-bold text-slate-900">Productivity Analysis</CardTitle>
-                      <CardDescription className="text-slate-600 mt-1">
+                      <CardTitle className="text-xl font-bold text-gray-900">Productivity Analysis</CardTitle>
+                      <CardDescription className="text-gray-600 mt-1 font-medium">
                         Relationship between farm size and crop yield across different districts
                       </CardDescription>
                     </div>
-                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <Activity className="h-4 w-4 text-purple-600" />
+                    <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                      <Activity className="h-5 w-5 text-purple-600" />
                     </div>
                   </div>
                 </CardHeader>
@@ -835,25 +838,25 @@ export default function DataExplorer() {
                   <div className="h-80">
                     <ResponsiveContainer width="100%" height="100%">
                       <ScatterChart data={filteredData}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                        <XAxis type="number" dataKey="area" name="Area" unit=" Ha" stroke="#64748b" />
-                        <YAxis type="number" dataKey="yield" name="Yield" unit=" T/Ha" stroke="#64748b" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                        <XAxis type="number" dataKey="area" name="Area" unit=" Ha" stroke="#6b7280" fontWeight={600} />
+                        <YAxis type="number" dataKey="yield" name="Yield" unit=" T/Ha" stroke="#6b7280" fontWeight={600} />
                         <Tooltip 
                           cursor={{ strokeDasharray: '3 3' }}
                           content={({ active, payload }) => {
                             if (active && payload && payload.length) {
                               const data = payload[0].payload
                               return (
-                                <div className="bg-white p-4 border border-slate-200 rounded-xl shadow-xl">
-                                  <p className="font-semibold text-slate-900">{data.district}</p>
-                                  <p className="text-sm text-slate-600">{data.crop}</p>
-                                  <p className="text-sm" style={{ color: '#3b82f6' }}>
+                                <div className="bg-white p-4 border-2 border-gray-200 rounded-xl shadow-2xl">
+                                  <p className="font-bold text-gray-900">{data.district}</p>
+                                  <p className="text-sm text-gray-600 font-semibold">{data.crop}</p>
+                                  <p className="text-sm font-semibold" style={{ color: '#005BAC' }}>
                                     Area: {data.area} Ha
                                   </p>
-                                  <p className="text-sm" style={{ color: '#10b981' }}>
+                                  <p className="text-sm font-semibold" style={{ color: '#10b981' }}>
                                     Yield: {data.yield} T/Ha
                                   </p>
-                                  <p className="text-sm text-slate-600">
+                                  <p className="text-sm text-gray-600 font-semibold">
                                     Farmers: {data.farmers}
                                   </p>
                                 </div>
@@ -862,7 +865,7 @@ export default function DataExplorer() {
                             return null
                           }}
                         />
-                        <Scatter name="Crops" dataKey="yield" fill="#3b82f6" />
+                        <Scatter name="Crops" dataKey="yield" fill="#005BAC" />
                       </ScatterChart>
                     </ResponsiveContainer>
                   </div>
@@ -872,17 +875,17 @@ export default function DataExplorer() {
 
             <TabsContent value="nutrition" className="p-8 space-y-8">
               {/* Nutrition Overview */}
-              <Card className="shadow-lg border border-slate-200 bg-white">
+              <Card className="shadow-xl border-2 border-gray-200 bg-white rounded-2xl">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-xl font-bold text-slate-900">Nutrition Indicators Dashboard</CardTitle>
-                      <CardDescription className="text-slate-600 mt-1">
+                      <CardTitle className="text-xl font-bold text-gray-900">Nutrition Indicators Dashboard</CardTitle>
+                      <CardDescription className="text-gray-600 mt-1 font-medium">
                         Child malnutrition indicators across Rwanda's provinces (2023)
                       </CardDescription>
                     </div>
-                    <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                      <Activity className="h-4 w-4 text-emerald-600" />
+                    <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
+                      <Activity className="h-5 w-5 text-emerald-600" />
                     </div>
                   </div>
                 </CardHeader>
@@ -890,13 +893,13 @@ export default function DataExplorer() {
                   <div className="h-80">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={nutritionData}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                        <XAxis dataKey="district" stroke="#64748b" />
-                        <YAxis stroke="#64748b" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                        <XAxis dataKey="district" stroke="#6b7280" fontWeight={600} />
+                        <YAxis stroke="#6b7280" fontWeight={600} />
                         <Tooltip content={<CustomTooltip />} />
-                        <Bar dataKey="stunting" fill="#ef4444" name="Stunting %" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="wasting" fill="#f59e0b" name="Wasting %" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="underweight" fill="#8b5cf6" name="Underweight %" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="stunting" fill="#ef4444" name="Stunting %" radius={[6, 6, 0, 0]} />
+                        <Bar dataKey="wasting" fill="#f59e0b" name="Wasting %" radius={[6, 6, 0, 0]} />
+                        <Bar dataKey="underweight" fill="#8b5cf6" name="Underweight %" radius={[6, 6, 0, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
@@ -904,16 +907,16 @@ export default function DataExplorer() {
               </Card>
 
               {/* Nutrition Data Table */}
-              <Card className="shadow-lg border border-slate-200 bg-white">
-                <CardHeader className="bg-gradient-to-r from-white via-emerald-50/30 to-green-50/30 border-b border-slate-200">
+              <Card className="shadow-xl border-2 border-gray-200 bg-white rounded-2xl">
+                <CardHeader className="bg-emerald-50 border-b-2 border-emerald-200">
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-xl font-bold text-slate-900">Detailed Nutrition Data</CardTitle>
-                      <CardDescription className="text-slate-600 mt-1">
+                      <CardTitle className="text-xl font-bold text-emerald-700">Detailed Nutrition Data</CardTitle>
+                      <CardDescription className="text-gray-700 mt-1 font-medium">
                         Comprehensive malnutrition indicators by region
                       </CardDescription>
                     </div>
-                    <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
+                    <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-2 border-emerald-200 font-bold">
                       DHS 2023 Survey
                     </Badge>
                   </div>
@@ -921,46 +924,46 @@ export default function DataExplorer() {
                 <CardContent className="p-0">
                   <div className="overflow-x-auto">
                     <table className="w-full">
-                      <thead className="bg-slate-50 border-b border-slate-200">
+                      <thead className="bg-[#E6E8EB] border-b-2 border-gray-200">
                         <tr>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Region</th>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Stunting %</th>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Wasting %</th>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Underweight %</th>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Households</th>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Year</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Region</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Stunting %</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Wasting %</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Underweight %</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Households</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Year</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-200">
+                      <tbody className="divide-y-2 divide-gray-200">
                         {nutritionData.map((item, index) => (
-                          <tr key={index} className={`hover:bg-slate-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-slate-25'}`}>
+                          <tr key={index} className={`hover:bg-[#E6E8EB]/30 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-2">
-                                <MapPin className="h-4 w-4 text-slate-400" />
-                                <span className="font-medium text-slate-900">{item.district}</span>
+                                <MapPin className="h-4 w-4 text-emerald-600" />
+                                <span className="font-bold text-gray-900">{item.district}</span>
                               </div>
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-2">
-                                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                                <span className="text-slate-700 font-medium">{item.stunting}%</span>
+                                <div className="w-3 h-3 bg-red-500 rounded-full shadow-md"></div>
+                                <span className="text-gray-800 font-bold">{item.stunting}%</span>
                               </div>
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-2">
-                                <div className="w-3 h-3 bg-amber-500 rounded-full"></div>
-                                <span className="text-slate-700 font-medium">{item.wasting}%</span>
+                                <div className="w-3 h-3 bg-amber-500 rounded-full shadow-md"></div>
+                                <span className="text-gray-800 font-bold">{item.wasting}%</span>
                               </div>
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-2">
-                                <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                                <span className="text-slate-700 font-medium">{item.underweight}%</span>
+                                <div className="w-3 h-3 bg-purple-500 rounded-full shadow-md"></div>
+                                <span className="text-gray-800 font-bold">{item.underweight}%</span>
                               </div>
                             </td>
-                            <td className="py-4 px-6 text-slate-700 font-medium">{item.households.toLocaleString()}</td>
+                            <td className="py-4 px-6 text-gray-800 font-bold">{item.households.toLocaleString()}</td>
                             <td className="py-4 px-6">
-                              <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
+                              <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-2 border-emerald-200 font-semibold">
                                 {item.year}
                               </Badge>
                             </td>
@@ -975,17 +978,17 @@ export default function DataExplorer() {
 
             <TabsContent value="markets" className="p-8 space-y-8">
               {/* Market Trends */}
-              <Card className="shadow-lg border border-slate-200 bg-white">
+              <Card className="shadow-xl border-2 border-gray-200 bg-white rounded-2xl">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-xl font-bold text-slate-900">Commodity Price Trends</CardTitle>
-                      <CardDescription className="text-slate-600 mt-1">
+                      <CardTitle className="text-xl font-bold text-gray-900">Commodity Price Trends</CardTitle>
+                      <CardDescription className="text-gray-600 mt-1 font-medium">
                         Monthly price movements for key agricultural commodities (RWF/Kg)
                       </CardDescription>
                     </div>
-                    <div className="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
-                      <TrendingUp className="h-4 w-4 text-amber-600" />
+                    <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+                      <TrendingUp className="h-5 w-5 text-amber-600" />
                     </div>
                   </div>
                 </CardHeader>
@@ -995,8 +998,8 @@ export default function DataExplorer() {
                       <AreaChart data={marketData}>
                         <defs>
                           <linearGradient id="colorMaize" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8}/>
-                            <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.1}/>
+                            <stop offset="5%" stopColor="#005BAC" stopOpacity={0.8}/>
+                            <stop offset="95%" stopColor="#005BAC" stopOpacity={0.1}/>
                           </linearGradient>
                           <linearGradient id="colorRice" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="5%" stopColor="#10b981" stopOpacity={0.8}/>
@@ -1011,11 +1014,11 @@ export default function DataExplorer() {
                             <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0.1}/>
                           </linearGradient>
                         </defs>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                        <XAxis dataKey="month" stroke="#64748b" />
-                        <YAxis stroke="#64748b" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                        <XAxis dataKey="month" stroke="#6b7280" fontWeight={600} />
+                        <YAxis stroke="#6b7280" fontWeight={600} />
                         <Tooltip content={<CustomTooltip />} />
-                        <Area type="monotone" dataKey="maize" stackId="1" stroke="#3b82f6" fill="url(#colorMaize)" />
+                        <Area type="monotone" dataKey="maize" stackId="1" stroke="#005BAC" fill="url(#colorMaize)" />
                         <Area type="monotone" dataKey="rice" stackId="2" stroke="#10b981" fill="url(#colorRice)" />
                         <Area type="monotone" dataKey="beans" stackId="3" stroke="#f59e0b" fill="url(#colorBeans)" />
                         <Area type="monotone" dataKey="potato" stackId="4" stroke="#8b5cf6" fill="url(#colorPotato)" />
@@ -1026,16 +1029,16 @@ export default function DataExplorer() {
               </Card>
 
               {/* Market Data Table */}
-              <Card className="shadow-lg border border-slate-200 bg-white">
-                <CardHeader className="bg-gradient-to-r from-white via-amber-50/30 to-orange-50/30 border-b border-slate-200">
+              <Card className="shadow-xl border-2 border-gray-200 bg-white rounded-2xl">
+                <CardHeader className="bg-amber-50 border-b-2 border-amber-200">
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-xl font-bold text-slate-900">Market Price Data</CardTitle>
-                      <CardDescription className="text-slate-600 mt-1">
+                      <CardTitle className="text-xl font-bold text-amber-700">Market Price Data</CardTitle>
+                      <CardDescription className="text-gray-700 mt-1 font-medium">
                         Monthly commodity prices from national market information system
                       </CardDescription>
                     </div>
-                    <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">
+                    <Badge variant="outline" className="bg-amber-50 text-amber-700 border-2 border-amber-200 font-bold">
                       RALIS Market Data
                     </Badge>
                   </div>
@@ -1043,53 +1046,53 @@ export default function DataExplorer() {
                 <CardContent className="p-0">
                   <div className="overflow-x-auto">
                     <table className="w-full">
-                      <thead className="bg-slate-50 border-b border-slate-200">
+                      <thead className="bg-[#E6E8EB] border-b-2 border-gray-200">
                         <tr>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Month</th>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Maize (RWF/Kg)</th>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Rice (RWF/Kg)</th>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Beans (RWF/Kg)</th>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Potato (RWF/Kg)</th>
-                          <th className="text-left py-4 px-6 font-semibold text-slate-700">Trend</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Month</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Maize (RWF/Kg)</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Rice (RWF/Kg)</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Beans (RWF/Kg)</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Potato (RWF/Kg)</th>
+                          <th className="text-left py-4 px-6 font-bold text-gray-800">Trend</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-200">
+                      <tbody className="divide-y-2 divide-gray-200">
                         {marketData.map((item, index) => (
-                          <tr key={index} className={`hover:bg-slate-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-slate-25'}`}>
+                          <tr key={index} className={`hover:bg-[#E6E8EB]/30 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-2">
-                                <Calendar className="h-4 w-4 text-slate-400" />
-                                <span className="font-medium text-slate-900">{item.month} 2024</span>
+                                <Calendar className="h-4 w-4 text-amber-600" />
+                                <span className="font-bold text-gray-900">{item.month} 2024</span>
                               </div>
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-2">
-                                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                                <span className="text-slate-700 font-medium">{item.maize.toLocaleString()}</span>
+                                <div className="w-3 h-3 bg-[#005BAC] rounded-full shadow-md"></div>
+                                <span className="text-gray-800 font-bold">{item.maize.toLocaleString()}</span>
                               </div>
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-2">
-                                <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
-                                <span className="text-slate-700 font-medium">{item.rice.toLocaleString()}</span>
+                                <div className="w-3 h-3 bg-emerald-500 rounded-full shadow-md"></div>
+                                <span className="text-gray-800 font-bold">{item.rice.toLocaleString()}</span>
                               </div>
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-2">
-                                <div className="w-3 h-3 bg-amber-500 rounded-full"></div>
-                                <span className="text-slate-700 font-medium">{item.beans.toLocaleString()}</span>
+                                <div className="w-3 h-3 bg-amber-500 rounded-full shadow-md"></div>
+                                <span className="text-gray-800 font-bold">{item.beans.toLocaleString()}</span>
                               </div>
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-2">
-                                <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                                <span className="text-slate-700 font-medium">{item.potato.toLocaleString()}</span>
+                                <div className="w-3 h-3 bg-purple-500 rounded-full shadow-md"></div>
+                                <span className="text-gray-800 font-bold">{item.potato.toLocaleString()}</span>
                               </div>
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-1">
                                 <ArrowUpRight className="h-4 w-4 text-emerald-500" />
-                                <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 text-xs">
+                                <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-2 border-emerald-200 text-xs font-semibold">
                                   Rising
                                 </Badge>
                               </div>
@@ -1104,61 +1107,61 @@ export default function DataExplorer() {
 
               {/* Market Insights */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
+                <Card className="bg-gradient-to-br from-[#005BAC]/10 to-white border-2 border-[#005BAC]/20 rounded-2xl">
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                        <TrendingUp className="h-6 w-6 text-white" />
+                      <div className="w-14 h-14 bg-gradient-to-br from-[#005BAC] to-[#0070cc] rounded-2xl flex items-center justify-center shadow-xl">
+                        <TrendingUp className="h-7 w-7 text-white" />
                       </div>
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                      <Badge variant="outline" className="bg-[#005BAC]/10 text-[#005BAC] border-2 border-[#005BAC]/20 font-bold">
                         Highest Growth
                       </Badge>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-slate-900 mb-1">+16.7%</div>
-                    <div className="text-sm text-slate-600 mb-3">Maize Price Increase</div>
-                    <p className="text-sm text-slate-700">
+                    <div className="text-3xl font-bold text-[#005BAC] mb-1">+16.7%</div>
+                    <div className="text-sm text-gray-700 mb-3 font-semibold">Maize Price Increase</div>
+                    <p className="text-sm text-gray-700 font-medium">
                       Maize prices showed the highest growth rate over the past 8 months, driven by seasonal demand patterns.
                     </p>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-emerald-50 to-green-50 border-emerald-200">
+                <Card className="bg-gradient-to-br from-emerald-50 to-white border-2 border-emerald-200 rounded-2xl">
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 bg-gradient-to-br from-emerald-600 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
-                        <Activity className="h-6 w-6 text-white" />
+                      <div className="w-14 h-14 bg-gradient-to-br from-emerald-600 to-green-600 rounded-2xl flex items-center justify-center shadow-xl">
+                        <Activity className="h-7 w-7 text-white" />
                       </div>
-                      <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
+                      <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-2 border-emerald-200 font-bold">
                         Most Stable
                       </Badge>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-slate-900 mb-1">±2.3%</div>
-                    <div className="text-sm text-slate-600 mb-3">Rice Price Volatility</div>
-                    <p className="text-sm text-slate-700">
+                    <div className="text-3xl font-bold text-emerald-700 mb-1">±2.3%</div>
+                    <div className="text-sm text-gray-700 mb-3 font-semibold">Rice Price Volatility</div>
+                    <p className="text-sm text-gray-700 font-medium">
                       Rice prices remained the most stable among all commodities, with minimal seasonal fluctuations.
                     </p>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
+                <Card className="bg-gradient-to-br from-amber-50 to-white border-2 border-amber-200 rounded-2xl">
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 bg-gradient-to-br from-amber-600 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
-                        <Star className="h-6 w-6 text-white" />
+                      <div className="w-14 h-14 bg-gradient-to-br from-amber-600 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl">
+                        <Star className="h-7 w-7 text-white" />
                       </div>
-                      <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">
+                      <Badge variant="outline" className="bg-amber-50 text-amber-700 border-2 border-amber-200 font-bold">
                         Premium Crop
                       </Badge>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-slate-900 mb-1">1,280</div>
-                    <div className="text-sm text-slate-600 mb-3">RWF/Kg Beans Peak</div>
-                    <p className="text-sm text-slate-700">
+                    <div className="text-3xl font-bold text-amber-700 mb-1">1,280</div>
+                    <div className="text-sm text-gray-700 mb-3 font-semibold">RWF/Kg Beans Peak</div>
+                    <p className="text-sm text-gray-700 font-medium">
                       Beans reached their highest price point in June, reflecting strong export demand and quality premiums.
                     </p>
                   </CardContent>
@@ -1169,19 +1172,19 @@ export default function DataExplorer() {
         </Card>
 
         {/* Footer Section */}
-        <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-lg">
+        <div className="bg-gradient-to-br from-[#005BAC] via-[#004a8f] to-[#003366] rounded-2xl p-10 text-white shadow-2xl">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
-                  <Database className="h-5 w-5 text-white" />
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border-2 border-white/30">
+                  <Database className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900">Data Quality</h4>
-                  <p className="text-sm text-slate-600">NISR Certified</p>
+                  <h4 className="font-bold text-white text-lg">Data Quality</h4>
+                  <p className="text-sm text-white/80 font-medium">NISR Certified</p>
                 </div>
               </div>
-              <p className="text-sm text-slate-700">
+              <p className="text-sm text-white/90 leading-relaxed font-medium">
                 All datasets are verified and quality-assured by the National Institute of Statistics of Rwanda, 
                 ensuring accuracy and reliability for research and policy making.
               </p>
@@ -1189,15 +1192,15 @@ export default function DataExplorer() {
 
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-emerald-600 to-green-600 rounded-xl flex items-center justify-center">
-                  <Globe className="h-5 w-5 text-white" />
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border-2 border-white/30">
+                  <Globe className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900">Open Access</h4>
-                  <p className="text-sm text-slate-600">Free & Public</p>
+                  <h4 className="font-bold text-white text-lg">Open Access</h4>
+                  <p className="text-sm text-white/80 font-medium">Free & Public</p>
                 </div>
               </div>
-              <p className="text-sm text-slate-700">
+              <p className="text-sm text-white/90 leading-relaxed font-medium">
                 Our commitment to transparency means all government data is freely accessible to researchers, 
                 students, and the public for educational and research purposes.
               </p>
@@ -1205,36 +1208,36 @@ export default function DataExplorer() {
 
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-amber-600 to-orange-600 rounded-xl flex items-center justify-center">
-                  <Shield className="h-5 w-5 text-white" />
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border-2 border-white/30">
+                  <Shield className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900">Data Security</h4>
-                  <p className="text-sm text-slate-600">Protected & Secure</p>
+                  <h4 className="font-bold text-white text-lg">Data Security</h4>
+                  <p className="text-sm text-white/80 font-medium">Protected & Secure</p>
                 </div>
               </div>
-              <p className="text-sm text-slate-700">
+              <p className="text-sm text-white/90 leading-relaxed font-medium">
                 We maintain the highest standards of data security and privacy protection while ensuring 
                 public access to aggregated, non-sensitive information.
               </p>
             </div>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-slate-200">
+          <div className="mt-8 pt-8 border-t-2 border-white/20">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between space-y-4 lg:space-y-0">
-              <div className="text-sm text-slate-600">
+              <div className="text-sm text-white/80 font-medium">
                 © 2024 National Institute of Statistics of Rwanda. All rights reserved.
               </div>
               <div className="flex items-center space-x-4">
-                <Button variant="outline" size="sm" className="text-slate-600 border-slate-300">
+                <Button variant="outline" size="sm" className="text-white border-2 border-white/30 bg-white/10 hover:bg-white/20 font-semibold">
                   <FileSpreadsheet className="h-4 w-4 mr-2" />
                   Documentation
                 </Button>
-                <Button variant="outline" size="sm" className="text-slate-600 border-slate-300">
+                <Button variant="outline" size="sm" className="text-white border-2 border-white/30 bg-white/10 hover:bg-white/20 font-semibold">
                   <Info className="h-4 w-4 mr-2" />
                   API Access
                 </Button>
-                <Button variant="outline" size="sm" className="text-slate-600 border-slate-300">
+                <Button variant="outline" size="sm" className="text-white border-2 border-white/30 bg-white/10 hover:bg-white/20 font-semibold">
                   <Users className="h-4 w-4 mr-2" />
                   Contact Support
                 </Button>

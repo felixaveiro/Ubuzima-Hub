@@ -398,6 +398,7 @@ npm run build:css
 - **Issues**: [GitHub Issues](https://github.com/felixaveiro/ubuzima-hub/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/felixaveiro/ubuzima-hub/discussions)
 - **Email**: [felix@vitascope.rw](mailto:felix@vitascope.rw)
+ - **Email**: [bikofelix2020@gmail.com](mailto:bikofelix2020@gmail.com)
 
 ## 📋 Roadmap
 

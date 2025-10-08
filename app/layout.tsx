@@ -8,7 +8,7 @@ import { Navigation } from "@/components/navigation"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "VitaScope Rwanda - AI-Powered Nutrition Intelligence",
+  title: "Ubuzima Hub - AI-Powered Nutrition Intelligence",
   description: "Combat hidden hunger and malnutrition in Rwanda using AI-driven insights from comprehensive health and nutrition datasets",
   generator: "v0.app",
 }
@@ -26,18 +26,18 @@ export default function RootLayout({
           <main className="flex-1">
             <Suspense fallback={null}>{children}</Suspense>
           </main>
-          <footer className="border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <footer className="border-t border-white/10 bg-[#005BAC] backdrop-blur">
             <div className="container mx-auto px-4 py-8">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-foreground">ubuzima hub</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <h3 className="font-semibold text-white">ubuzima hub</h3>
+                  <p className="text-sm text-white/80">
                     AI-powered nutrition intelligence for combating hidden hunger and improving food security in Rwanda.
                   </p>
                 </div>
                 <div className="space-y-4">
-                  <h4 className="font-semibold text-foreground">Features</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
+                  <h4 className="font-semibold text-white">Features</h4>
+                  <ul className="space-y-2 text-sm text-white/70">
                     <li>Nutrition Dashboard</li>
                     <li>AI Insights</li>
                     <li>Data Explorer</li>
@@ -45,8 +45,8 @@ export default function RootLayout({
                   </ul>
                 </div>
                 <div className="space-y-4">
-                  <h4 className="font-semibold text-foreground">Data Sources</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
+                  <h4 className="font-semibold text-white">Data Sources</h4>
+                  <ul className="space-y-2 text-sm text-white/70">
                     <li>NISR Health Surveys</li>
                     <li>DHS Rwanda 2020</li>
                     <li>Agricultural Statistics</li>
@@ -54,8 +54,8 @@ export default function RootLayout({
                   </ul>
                 </div>
                 <div className="space-y-4">
-                  <h4 className="font-semibold text-foreground">Partners</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
+                  <h4 className="font-semibold text-white">Partners</h4>
+                  <ul className="space-y-2 text-sm text-white/70">
                     <li>Ministry of Health</li>
                     <li>NISR</li>
                     <li>WFP Rwanda</li>
@@ -63,7 +63,7 @@ export default function RootLayout({
                   </ul>
                 </div>
               </div>
-              <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
+              <div className="mt-8 pt-8 border-t border-white/10 text-center text-sm text-white/70">
                 <p>&copy; 2025 ubuzima hub. Empowering nutrition security through data intelligence.</p>
               </div>
             </div>

@@ -5,8 +5,6 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import dynamic from 'next/dynamic'
 
-const DemoUploader = dynamic(() => import('@/components/demo-uploader'), { ssr: false })
-
 const stats = [
   { 
     value: "38%", 
@@ -240,18 +238,6 @@ export default function HomePage() {
               </Link>
             </Button>
           </div>
-        </div>
-      </section>
-
-      {/* Demo Upload Section */}
-      <section className="py-24 px-6 bg-white">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-2">Demo: Upload & Download Documents / Videos</h2>
-            <p className="text-gray-600">Try uploading a document or video file for demo purposes. Uploaded files are stored in <code>/public/uploads</code> and can be downloaded.</p>
-          </div>
-
-          <DemoUploader />
         </div>
       </section>
     </div>
