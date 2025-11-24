@@ -1,0 +1,24 @@
+# Python AI System for Ubuzima Hub - NISR Data RAG
+# Retrieval-Augmented Generation with strict Rwanda NISR dataset boundaries
+
+# Core dependencies
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Vector embeddings and similarity search
+sentence-transformers>=2.2.0
+chromadb>=0.4.0
+langchain>=0.1.0
+langchain-community>=0.0.20
+
+# AI/LLM integration
+openai>=1.0.0
+groq>=0.4.0
+
+# Data processing
+python-dotenv>=1.0.0
+
+# Optional: FastAPI for standalone API server
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.0.0

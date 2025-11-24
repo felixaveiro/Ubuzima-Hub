@@ -24,6 +24,10 @@ Our mission is to provide evidence-based insights that enable targeted intervent
 - Food security status tracking with district-level breakdowns
 
 ### 🤖 **AI-Powered Insights**
+- **NISR Data-Grounded AI Chatbot**: Ask questions about Rwanda nutrition data
+- **Strict Dataset Boundaries**: Only answers from official NISR datasets
+- **Retrieval-Augmented Generation (RAG)**: Vector search + LLM for accurate responses
+- **Source Citations**: Every answer cites NISR data sources and years
 - Machine learning models for predicting malnutrition hotspots
 - Intelligent recommendations based on nutrition and health data
 - Risk assessment algorithms for early intervention planning
@@ -101,6 +105,9 @@ Our mission is to provide evidence-based insights that enable targeted intervent
    # AI API Configuration
    GROQ_API_KEY=your_groq_api_key_here
    
+   # Python AI Backend URL (for NISR chatbot)
+   PYTHON_API_URL=http://localhost:8000
+   
    # Database Configuration
    DATABASE_URL=your_postgresql_connection_string
    ```
@@ -110,7 +117,20 @@ Our mission is to provide evidence-based insights that enable targeted intervent
    npm run dev
    ```
 
-5. **Open your browser**
+5. **Optional: Start Python AI Backend** (for NISR AI chatbot)
+   ```bash
+   # In a separate terminal
+   cd python-ai
+   python -m venv venv
+   venv\Scripts\activate
+   pip install -r requirements.txt
+   python vector_indexer.py  # Build index (one-time)
+   python api_server.py      # Start backend
+   ```
+   
+   See [PYTHON_AI_SETUP.md](PYTHON_AI_SETUP.md) for detailed instructions.
+
+6. **Open your browser**
    Navigate to `http://localhost:3000`
 
 ### Getting API Keys
@@ -157,6 +177,41 @@ ubuzima-hub/
 ## 🔌 API Documentation
 
 ### Core Endpoints
+
+#### **NISR AI Chat API** 🆕
+```typescript
+POST /api/nisr-ai
+Content-Type: application/json
+
+{
+  "query": "What is the stunting rate in Rwanda?",
+  "max_context_docs": 5
+}
+
+Response: {
+  "answer": "According to NISR data from 2020...",
+  "sources": [
+    {
+      "source": "NISR Nutrition Indicators",
+      "year": "2020",
+      "type": "nutrition_data"
+    }
+  ],
+  "context_used": true,
+  "is_relevant": true
+}
+```
+
+#### **AI Health Check**
+```typescript
+GET /api/nisr-ai/health
+
+Response: {
+  "status": "healthy",
+  "python_backend": "ok",
+  "python_status": "healthy"
+}
+```
 
 #### **AI Insights API**
 ```typescript
