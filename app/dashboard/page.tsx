@@ -372,6 +372,7 @@ export default function Dashboard() {
                         stroke="#64748b"
                         fontSize={13}
                         fontWeight={600}
+                        domain={[0, 100]}
                         label={{ value: "Percentage (%)", angle: -90, position: "insideLeft" }}
                       />
                       <Tooltip
@@ -436,6 +437,7 @@ export default function Dashboard() {
                         stroke="#64748b"
                         fontSize={13}
                         fontWeight={600}
+                        domain={[0, 100]}
                         label={{ value: "Percentage (%)", angle: -90, position: "insideLeft" }}
                       />
                       <Tooltip
