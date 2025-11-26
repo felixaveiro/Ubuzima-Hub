@@ -301,7 +301,6 @@ Otherwise, provide a clear, factual answer about RWANDA based ONLY on the contex
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt }
       ],
-      maxTokens: 500,
       temperature: 0.1, // Low temperature for factual responses
     });
     
