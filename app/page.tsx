@@ -4,6 +4,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import dynamic from 'next/dynamic'
+import { RwandaMap } from "@/components/rwanda-map"
 
 const stats = [
   { 
@@ -172,6 +173,13 @@ export default function HomePage() {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Rwanda Nutrition Map Section */}
+      <section className="py-24 px-6 bg-gradient-to-b from-white to-blue-50">
+        <div className="container mx-auto max-w-7xl">
+          <RwandaMap />
         </div>
       </section>
 

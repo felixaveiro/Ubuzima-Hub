@@ -2,6 +2,20 @@
 
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+
+interface PredictiveAnalysis {
+  district: string
+  stunting: number
+  wasting: number
+  anemia: number
+  underweight: number
+  trend: 'improving' | 'stable' | 'declining'
+  riskLevel: 'critical' | 'high' | 'moderate' | 'low'
+  keyIssues: string[]
+  recommendations: string[]
+  prediction: string
+  confidenceScore: number
+}
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -41,35 +55,31 @@ const trendsData = [
 ]
 
 export default function Dashboard() {
-  const [aiInsight, setAiInsight] = useState("")
+  const [predictiveAnalysis, setPredictiveAnalysis] = useState<PredictiveAnalysis | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
-  const [selectedRegion, setSelectedRegion] = useState("")
+  const [selectedDistrict, setSelectedDistrict] = useState("Kayonza")
 
-  const generateAIInsight = async () => {
+  const generatePredictiveAnalysis = async () => {
+    if (!selectedDistrict.trim()) return
+    
     setIsGenerating(true)
     
     try {
-      const region = selectedRegion || 'Rwanda'
-      const query = `Provide a comprehensive nutrition analysis for ${region}. Include: 1) Current stunting, wasting, and anemia rates with latest data, 2) Historical trends showing improvement or deterioration, 3) Comparison with other regions if applicable, 4) Specific recommendations for intervention programs based on the data patterns. Use only NISR dataset information.`
-      
-      const response = await fetch('/api/nisr-chat', {
+      const response = await fetch('/api/predictive-analysis', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: query })
+        body: JSON.stringify({ district: selectedDistrict })
       })
       
       const data = await response.json()
       
-      if (data.answer) {
-        setAiInsight(data.answer)
+      if (data.analysis) {
+        setPredictiveAnalysis(data.analysis)
       } else if (data.error) {
-        setAiInsight(`Unable to generate insights: ${data.error}`)
-      } else {
-        setAiInsight('Unable to generate insights. Please try again.')
+        console.error('Error:', data.error)
       }
     } catch (error) {
-      console.error('Error generating insights:', error)
-      setAiInsight('Error connecting to AI service. Please check your connection and try again.')
+      console.error('Error generating predictive analysis:', error)
     } finally {
       setIsGenerating(false)
     }
@@ -236,14 +246,14 @@ export default function Dashboard() {
           })}
         </div>
 
-        {/* AI Insights Section */}
+        {/* Predictive Analysis Section */}
         <Card className="border-2 border-[#005BAC]/20 bg-gradient-to-br from-white via-[#E6E8EB]/30 to-white shadow-2xl rounded-2xl">
           <CardHeader className="pb-6 border-b-2 border-[#005BAC]/10">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="relative">
                   <div className="w-14 h-14 bg-gradient-to-br from-[#005BAC] to-[#0070cc] rounded-2xl flex items-center justify-center shadow-xl">
-                    <Brain className="h-7 w-7 text-white" />
+                    <TrendingUp className="h-7 w-7 text-white" />
                   </div>
                   <div className="absolute -top-1 -right-1 w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center border-2 border-white">
                     <Zap className="h-3 w-3 text-white" />
@@ -251,16 +261,16 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <CardTitle className="text-2xl font-bold text-[#005BAC] mb-1">
-                    AI-Powered Nutrition Intelligence
+                    Predictive Nutrition Analysis
                   </CardTitle>
                   <CardDescription className="text-gray-600 text-base font-medium">
-                    Advanced machine learning analysis of nutrition patterns and intervention opportunities
+                    District-based predictive modeling and intervention recommendations
                   </CardDescription>
                 </div>
               </div>
               <Badge variant="outline" className="bg-purple-50 text-purple-700 border-2 border-purple-200 px-4 py-2 font-semibold">
-                <Brain className="h-4 w-4 mr-2" />
-                ML Enabled
+                <TrendingUp className="h-4 w-4 mr-2" />
+                Predictive Model
               </Badge>
             </div>
           </CardHeader>
@@ -270,14 +280,15 @@ export default function Dashboard() {
                 <div className="flex-1 relative">
                   <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
-                    placeholder="Enter district, province, or region for targeted analysis..."
-                    value={selectedRegion}
-                    onChange={(e) => setSelectedRegion(e.target.value)}
+                    placeholder="Enter district name (e.g., Kayonza, Kigali, Musanze)..."
+                    value={selectedDistrict}
+                    onChange={(e) => setSelectedDistrict(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && generatePredictiveAnalysis()}
                     className="pl-12 h-14 bg-[#E6E8EB]/50 border-2 border-gray-300 focus:border-[#005BAC] focus:ring-[#005BAC] rounded-xl text-base font-medium"
                   />
                 </div>
                 <Button
-                  onClick={generateAIInsight}
+                  onClick={generatePredictiveAnalysis}
                   disabled={isGenerating}
                   className="h-14 px-8 bg-gradient-to-r from-[#005BAC] to-[#0070cc] hover:from-[#004a8f] hover:to-[#005BAC] text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 text-base"
                 >
@@ -288,39 +299,128 @@ export default function Dashboard() {
                     </>
                   ) : (
                     <>
-                      <Brain className="h-5 w-5 mr-3" />
-                      Generate Insights
+                      <TrendingUp className="h-5 w-5 mr-3" />
+                      Analyze District
                     </>
                   )}
                 </Button>
               </div>
             </div>
             
-            {aiInsight && (
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#005BAC]/5 to-purple-50 rounded-2xl"></div>
-                <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-2xl border-2 border-[#005BAC]/20 shadow-xl">
-                  <div className="flex items-start space-x-5">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0 mt-1 shadow-lg">
-                      <Brain className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1 space-y-4">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-xl font-bold text-[#005BAC]">AI Analysis Results</h4>
-                        <Badge variant="secondary" className="bg-[#005BAC]/10 text-[#005BAC] font-semibold border-2 border-[#005BAC]/20">
-                          Confidence: 94%
+            {predictiveAnalysis && (
+              <div className="space-y-6">
+                {/* Predictive Results Header */}
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#005BAC]/5 to-purple-50 rounded-2xl"></div>
+                  <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-2xl border-2 border-[#005BAC]/20 shadow-xl">
+                    <div className="flex items-start justify-between mb-6">
+                      <div>
+                        <h4 className="text-3xl font-bold text-[#005BAC] mb-2">
+                          {predictiveAnalysis.district}
+                        </h4>
+                        <p className="text-gray-600 font-medium">Predictive Analysis Results</p>
+                      </div>
+                      <div className="flex items-center space-x-4">
+                        <div className="text-right">
+                          <div className="text-sm text-gray-600 font-medium">Confidence Score</div>
+                          <div className="text-3xl font-bold text-[#005BAC]">{predictiveAnalysis.confidenceScore}%</div>
+                        </div>
+                        <Badge 
+                          variant="outline" 
+                          className={`px-4 py-2 font-semibold text-sm border-2 ${
+                            predictiveAnalysis.riskLevel === 'critical' ? 'bg-red-50 border-red-200 text-red-700' :
+                            predictiveAnalysis.riskLevel === 'high' ? 'bg-orange-50 border-orange-200 text-orange-700' :
+                            predictiveAnalysis.riskLevel === 'moderate' ? 'bg-yellow-50 border-yellow-200 text-yellow-700' :
+                            'bg-green-50 border-green-200 text-green-700'
+                          }`}
+                        >
+                          {predictiveAnalysis.riskLevel.toUpperCase()} RISK
                         </Badge>
                       </div>
-                      <p className="text-gray-700 leading-relaxed text-base">{aiInsight}</p>
-                      <div className="flex items-center space-x-6 pt-3 text-sm text-gray-600 font-medium">
-                        <span className="flex items-center">
-                          <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full mr-2"></div>
-                          Data Sources: 12
-                        </span>
-                        <span className="flex items-center">
-                          <div className="w-2.5 h-2.5 bg-[#005BAC] rounded-full mr-2"></div>
-                          Processing Time: 1.2s
-                        </span>
+                    </div>
+
+                    {/* Nutrition Indicators */}
+                    <div className="grid grid-cols-4 gap-4 mb-8">
+                      <div className="bg-gradient-to-br from-red-50 to-red-100/50 rounded-xl p-4 border-2 border-red-200">
+                        <div className="text-sm text-red-600 font-bold mb-2">Stunting Rate</div>
+                        <div className="text-3xl font-bold text-red-700">{predictiveAnalysis.stunting}%</div>
+                        <div className="text-xs text-red-600 mt-2">
+                          {predictiveAnalysis.stunting > 40 ? '⚠️ Critical' : 
+                           predictiveAnalysis.stunting > 35 ? '⚠️ High' :
+                           predictiveAnalysis.stunting > 30 ? '⚠️ Moderate' : '✓ Low'}
+                        </div>
+                      </div>
+                      
+                      <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-xl p-4 border-2 border-amber-200">
+                        <div className="text-sm text-amber-600 font-bold mb-2">Wasting Rate</div>
+                        <div className="text-3xl font-bold text-amber-700">{predictiveAnalysis.wasting}%</div>
+                        <div className="text-xs text-amber-600 mt-2">
+                          {predictiveAnalysis.wasting > 3 ? '⚠️ Critical' : '✓ Normal'}
+                        </div>
+                      </div>
+                      
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-xl p-4 border-2 border-blue-200">
+                        <div className="text-sm text-blue-600 font-bold mb-2">Anemia Prev.</div>
+                        <div className="text-3xl font-bold text-blue-700">{predictiveAnalysis.anemia}%</div>
+                        <div className="text-xs text-blue-600 mt-2">
+                          {predictiveAnalysis.anemia > 25 ? '⚠️ Critical' : 
+                           predictiveAnalysis.anemia > 20 ? '⚠️ High' : '✓ Moderate'}
+                        </div>
+                      </div>
+                      
+                      <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 rounded-xl p-4 border-2 border-purple-200">
+                        <div className="text-sm text-purple-600 font-bold mb-2">Underweight</div>
+                        <div className="text-3xl font-bold text-purple-700">{predictiveAnalysis.underweight}%</div>
+                        <div className="text-xs text-purple-600 mt-2">
+                          {predictiveAnalysis.underweight > 10 ? '⚠️ High' : '✓ Normal'}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prediction */}
+                    <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-xl p-6 border-2 border-teal-200 mb-6">
+                      <div className="flex items-start space-x-4">
+                        <div className="p-3 bg-teal-500 rounded-lg flex-shrink-0">
+                          <TrendingUp className="h-6 w-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h5 className="font-bold text-teal-900 mb-2">Predictive Forecast</h5>
+                          <p className="text-teal-800 leading-relaxed">{predictiveAnalysis.prediction}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Key Issues */}
+                    <div className="mb-6">
+                      <h5 className="font-bold text-lg text-gray-900 mb-4 flex items-center">
+                        <AlertTriangle className="h-5 w-5 text-red-500 mr-2" />
+                        Key Issues
+                      </h5>
+                      <div className="space-y-3">
+                        {predictiveAnalysis.keyIssues.map((issue, idx) => (
+                          <div key={idx} className="flex items-start space-x-3 p-4 bg-red-50 rounded-lg border-2 border-red-100">
+                            <div className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></div>
+                            <p className="text-gray-800 font-medium">{issue}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Recommendations */}
+                    <div>
+                      <h5 className="font-bold text-lg text-gray-900 mb-4 flex items-center">
+                        <Target className="h-5 w-5 text-green-600 mr-2" />
+                        Intervention Recommendations
+                      </h5>
+                      <div className="space-y-3">
+                        {predictiveAnalysis.recommendations.map((rec, idx) => (
+                          <div key={idx} className="flex items-start space-x-3 p-4 bg-green-50 rounded-lg border-2 border-green-100">
+                            <div className="w-6 h-6 rounded-full bg-green-500 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">
+                              {idx + 1}
+                            </div>
+                            <p className="text-gray-800 font-medium">{rec}</p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
