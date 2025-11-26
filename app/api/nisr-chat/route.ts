@@ -44,15 +44,31 @@ function searchRelevantData(query: string, maxResults: number = 8): string {
   const queryLower = query.toLowerCase();
   const keywords = queryLower.split(" ").filter(w => w.length > 3);
   
-  // Search nutrition indicators
+  // Add regional/residence keywords if detected in query
+  const regionalKeywords = ["rural", "urban", "province", "district", "kigali", "city", "village", "area"];
+  const hasRegionalQuery = regionalKeywords.some(rk => queryLower.includes(rk));
+  
+  // Search nutrition indicators with enhanced dimension and regional filtering
   const relevantNutrition = nutritionData
     .map((row: any) => {
       let score = 0;
-      const searchText = `${row["GHO (DISPLAY)"]} ${row["DIMENSION (NAME)"]} ${row["YEAR (DISPLAY)"]}`.toLowerCase();
+      const searchText = `${row["GHO (DISPLAY)"]} ${row["DIMENSION (NAME)"]} ${row["DIMENSION (CODE)"]} ${row["YEAR (DISPLAY)"]}`.toLowerCase();
       
       keywords.forEach(keyword => {
         if (searchText.includes(keyword)) score++;
       });
+      
+      // Boost score for recent years (2018+)
+      const year = parseInt(row["YEAR (DISPLAY)"]);
+      if (year >= 2018) score += 2;
+      else if (year >= 2015) score += 1;
+      
+      // Boost score for regional dimension matches
+      if (hasRegionalQuery) {
+        regionalKeywords.forEach(rk => {
+          if (searchText.includes(rk)) score += 3;
+        });
+      }
       
       return { row, score, type: "nutrition" };
     })
@@ -76,7 +92,7 @@ function searchRelevantData(query: string, maxResults: number = 8): string {
     .sort((a, b) => b.score - a.score)
     .slice(0, 3);
   
-  // Format context
+  // Format context with enhanced dimension details
   let context = "NISR RWANDA DATA:\n\n";
   
   if (relevantNutrition.length > 0) {
@@ -84,9 +100,13 @@ function searchRelevantData(query: string, maxResults: number = 8): string {
     relevantNutrition.forEach((item: any, idx: number) => {
       const row = item.row;
       context += `${idx + 1}. ${row["GHO (DISPLAY)"]} (${row["YEAR (DISPLAY)"]})\n`;
-      if (row["DIMENSION (NAME)"]) context += `   - Dimension: ${row["DIMENSION (NAME)"]}\n`;
+      if (row["DIMENSION (NAME)"]) {
+        context += `   - Category: ${row["DIMENSION (NAME)"]}\n`;
+      }
       context += `   - Value: ${row["Value"]}\n`;
-      if (row["Low"] && row["High"]) context += `   - Range: ${row["Low"]} - ${row["High"]}\n`;
+      if (row["Low"] && row["High"]) {
+        context += `   - Confidence Range: ${row["Low"]} - ${row["High"]}\n`;
+      }
       context += "\n";
     });
   }
@@ -280,8 +300,22 @@ When answering about RWANDA:
 - Start with the direct answer citing Rwanda specifically
 - Use only the data from the NISR context provided
 - Cite specific years and values from the data
-- Mention dimensions (age group, gender, location, wealth) if available
-- Include data ranges (low-high) when provided
+- Mention dimensions (age group, gender, residence type: rural/urban, wealth quintile) if available
+- Include data ranges (low-high) when provided for confidence intervals
+- When asked about specific regions/areas, focus on Rural vs Urban data if available
+- Compare trends across years when multiple time points exist
+- Provide actionable recommendations based on the data patterns
+
+For regional/district analysis:
+- Note that data is categorized by Rural vs Urban residence type
+- If specific province/district data isn't available, explain the available breakdowns
+- Use available dimensional data (wealth quintile, education level) as proxy indicators
+
+For predictive analysis:
+- Identify trends from historical data (comparing multiple years)
+- Note improvement rates or deterioration patterns
+- Project likely outcomes if current trends continue
+- Recommend interventions based on data patterns
 
 If asked about any other country: Politely decline and redirect to Rwanda.`;
 

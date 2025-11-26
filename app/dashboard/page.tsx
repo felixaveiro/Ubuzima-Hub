@@ -47,11 +47,32 @@ export default function Dashboard() {
 
   const generateAIInsight = async () => {
     setIsGenerating(true)
-    // Simulate API call
-    setTimeout(() => {
-      setAiInsight(`Analysis for ${selectedRegion || 'Rwanda'}: Based on current nutrition trends, stunting rates have decreased by 2.1% annually. Eastern Province shows the highest rates requiring targeted intervention programs. Recommendations include increased maternal nutrition education, improved access to micronutrient supplementation, and enhanced food security measures in rural areas.`)
+    
+    try {
+      const region = selectedRegion || 'Rwanda'
+      const query = `Provide a comprehensive nutrition analysis for ${region}. Include: 1) Current stunting, wasting, and anemia rates with latest data, 2) Historical trends showing improvement or deterioration, 3) Comparison with other regions if applicable, 4) Specific recommendations for intervention programs based on the data patterns. Use only NISR dataset information.`
+      
+      const response = await fetch('/api/nisr-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: query })
+      })
+      
+      const data = await response.json()
+      
+      if (data.answer) {
+        setAiInsight(data.answer)
+      } else if (data.error) {
+        setAiInsight(`Unable to generate insights: ${data.error}`)
+      } else {
+        setAiInsight('Unable to generate insights. Please try again.')
+      }
+    } catch (error) {
+      console.error('Error generating insights:', error)
+      setAiInsight('Error connecting to AI service. Please check your connection and try again.')
+    } finally {
       setIsGenerating(false)
-    }, 2000)
+    }
   }
 
   return (
