@@ -91,15 +91,17 @@ export default function HomePage() {
             Rwanda's Fight Against Hidden Hunger  and malnutriton in children
           </Badge>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-balance mb-10 leading-tight tracking-tight text-gray-900">
-            Ending <span className="text-[#005BAC] relative font-black">
-              Hidden Hunger 
+            UBUZIMA<span className="text-[#005BAC] relative font-black">
+             HUB
               <div className="absolute -inset-2 bg-[#005BAC]/10 rounded-xl -z-10 transform rotate-1"></div>
             </span> <br />
             in Rwanda
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-5xl mx-auto leading-relaxed">
-            Leverage AI-powered insights from NISR datasets to combat micronutrient deficiencies and malnutrition. 
-            Map nutrition hotspots, predict risks, and develop targeted interventions for Rwanda's communities.
+           Rwanda continues to face high rates of stunting, wasting, anemia, and food insecurity among children and women.
+           Policymakers, health workers, and planners lack a unified, data-driven tool to identify malnutrition hotspots,
+           track key nutrition indicators, and prioritize interventions. Ubuzima hub in Rwanda integrates national datasets,
+           maps local nutrition challenges, and provides actionable, AI-driven insights to guide targeted nutrition programs.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
             <Button size="lg" className="text-lg px-12 py-6 shadow-xl bg-[#005BAC] hover:bg-[#004a8f] text-white transition-all duration-300 transform hover:scale-105 rounded-xl font-bold" asChild>

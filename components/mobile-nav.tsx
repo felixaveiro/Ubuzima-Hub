@@ -111,7 +111,7 @@ export function MobileNav() {
         <div className="px-3 py-3 bg-slate-50 border-t border-slate-200 mb-4">
           <p className="text-xs text-slate-500 text-center leading-relaxed">
             Ubuzima Hub<br />
-            <span className="text-slate-400">Ending Hidden Hunger • 2025</span>
+            <span className="text-slate-400">UBUZIMA HUB RWANDA • 2025</span>
           </p>
         </div>
       </SheetContent>
