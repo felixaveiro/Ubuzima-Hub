@@ -117,3 +117,4 @@ export function MobileDashboardCards({ onCardClick }: MobileDashboardCardsProps)
     </div>
   )
 }
+

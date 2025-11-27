@@ -90,7 +90,7 @@ export default function HomePage() {
         <div className="container mx-auto text-center relative z-10 max-w-7xl">
           <Badge variant="secondary" className="mb-10 px-6 py-3 text-lg font-semibold bg-white shadow-sm border border-[#005BAC]/10 text-[#005BAC]">
             <Heart className="h-6 w-6 mr-2 text-red-500" />
-            Rwanda's Fight Against Hidden Hunger  and malnutriton in children
+            Rwanda's Fight Against Hidden Hunger  and malnutriton in children under 5 years
           </Badge>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-balance mb-10 leading-tight tracking-tight text-gray-900">
             UBUZIMA<span className="text-[#005BAC] relative font-black">
