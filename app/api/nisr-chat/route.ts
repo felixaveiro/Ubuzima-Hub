@@ -3,7 +3,45 @@ import { generateText } from "ai";
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
-import { parse } from "csv-parse/sync";
+
+// Simple CSV parser function
+function parseCSV(content: string): any[] {
+  const lines = content.split('\n').filter(line => line.trim());
+  if (lines.length === 0) return [];
+  
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  const rows: any[] = [];
+  
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i];
+    const values: string[] = [];
+    let current = '';
+    let inQuotes = false;
+    
+    for (let j = 0; j < line.length; j++) {
+      const char = line[j];
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        values.push(current.trim().replace(/^"|"$/g, ''));
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    values.push(current.trim().replace(/^"|"$/g, ''));
+    
+    if (values.length === headers.length) {
+      const row: any = {};
+      headers.forEach((header, idx) => {
+        row[header] = values[idx];
+      });
+      rows.push(row);
+    }
+  }
+  
+  return rows;
+}
 
 // Load and cache nutrition data
 let nutritionDataCache: any[] | null = null;
@@ -15,7 +53,7 @@ function loadNutritionData() {
   try {
     const filePath = path.join(process.cwd(), "data", "nutrition_indicators_rwa.csv");
     const fileContent = fs.readFileSync(filePath, "utf-8");
-    nutritionDataCache = parse(fileContent, { columns: true, skip_empty_lines: true });
+    nutritionDataCache = parseCSV(fileContent);
     return nutritionDataCache;
   } catch (error) {
     console.error("Error loading nutrition data:", error);
@@ -29,7 +67,7 @@ function loadSurveyData() {
   try {
     const filePath = path.join(process.cwd(), "data", "search-10-09-25-050154.csv");
     const fileContent = fs.readFileSync(filePath, "utf-8");
-    surveyDataCache = parse(fileContent, { columns: true, skip_empty_lines: true });
+    surveyDataCache = parseCSV(fileContent);
     return surveyDataCache;
   } catch (error) {
     console.error("Error loading survey data:", error);

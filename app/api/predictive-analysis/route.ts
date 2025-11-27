@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
-import csv from 'csv-parse/sync'
 
 interface NutritionRecord {
   indicator: string
