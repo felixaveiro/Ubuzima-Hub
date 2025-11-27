@@ -1,9 +1,10 @@
 "use client"
-
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
+import { useState, useMemo } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
+import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet"
+import L from "leaflet"
 
 interface District {
   name: string
@@ -11,205 +12,291 @@ interface District {
   stunting: number
   wasting: number
   anemia: number
-  color: string
+  foodSecurity: number
+  coordinates: [number, number] // [lat, lng]
 }
 
 const rwandaDistricts: District[] = [
   // Northern Province
-  { name: "Musanze", province: "North", stunting: 31, wasting: 8, anemia: 15, color: "#fb923c" },
-  { name: "Burera", province: "North", stunting: 30, wasting: 8, anemia: 14, color: "#fb923c" },
-  { name: "Gicumbi", province: "North", stunting: 28, wasting: 7, anemia: 13, color: "#fbbf24" },
-  { name: "Gakenke", province: "North", stunting: 34, wasting: 9, anemia: 16, color: "#ef4444" },
+  { name: "Burera", province: "Northern", stunting: 30, wasting: 8, anemia: 14, foodSecurity: 78, coordinates: [-1.49, 29.88] },
+  { name: "Gicumbi", province: "Northern", stunting: 28, wasting: 7, anemia: 13, foodSecurity: 82, coordinates: [-1.64, 30.06] },
+  { name: "Gakenke", province: "Northern", stunting: 34, wasting: 9, anemia: 16, foodSecurity: 75, coordinates: [-1.68, 29.78] },
+  { name: "Rulindo", province: "Northern", stunting: 32, wasting: 8, anemia: 15, foodSecurity: 77, coordinates: [-1.79, 30.06] },
+  { name: "Musanze", province: "Northern", stunting: 31, wasting: 8, anemia: 15, foodSecurity: 79, coordinates: [-1.50, 29.63] },
+  
   // Eastern Province
-  { name: "Kayonza", province: "East", stunting: 39, wasting: 12, anemia: 18, color: "#ef4444" },
-  { name: "Kirehe", province: "East", stunting: 36, wasting: 10, anemia: 17, color: "#ef4444" },
-  { name: "Ngoma", province: "East", stunting: 25, wasting: 6, anemia: 12, color: "#22c55e" },
-  { name: "Nyagatare", province: "East", stunting: 38, wasting: 11, anemia: 19, color: "#ef4444" },
-  { name: "Gatsibo", province: "East", stunting: 37, wasting: 10, anemia: 18, color: "#ef4444" },
-  { name: "Rwamagana", province: "East", stunting: 42, wasting: 13, anemia: 20, color: "#dc2626" },
-  // Southern Province
-  { name: "Huye", province: "South", stunting: 28, wasting: 7, anemia: 13, color: "#fbbf24" },
-  { name: "Gisagara", province: "South", stunting: 33, wasting: 9, anemia: 15, color: "#fb923c" },
-  { name: "Nyaruguru", province: "South", stunting: 32, wasting: 8, anemia: 15, color: "#fb923c" },
-  { name: "Nyanza", province: "South", stunting: 26, wasting: 6, anemia: 12, color: "#22c55e" },
+  { name: "Nyagatare", province: "Eastern", stunting: 38, wasting: 11, anemia: 19, foodSecurity: 68, coordinates: [-1.30, 30.33] },
+  { name: "Gatsibo", province: "Eastern", stunting: 37, wasting: 10, anemia: 18, foodSecurity: 70, coordinates: [-1.60, 30.42] },
+  { name: "Kayonza", province: "Eastern", stunting: 39, wasting: 12, anemia: 18, foodSecurity: 69, coordinates: [-1.89, 30.42] },
+  { name: "Rwamagana", province: "Eastern", stunting: 42, wasting: 13, anemia: 20, foodSecurity: 65, coordinates: [-1.95, 30.43] },
+  { name: "Kirehe", province: "Eastern", stunting: 36, wasting: 10, anemia: 17, foodSecurity: 72, coordinates: [-2.22, 30.72] },
+  { name: "Ngoma", province: "Eastern", stunting: 25, wasting: 6, anemia: 12, foodSecurity: 85, coordinates: [-2.18, 30.53] },
+  { name: "Bugesera", province: "Eastern", stunting: 35, wasting: 9, anemia: 16, foodSecurity: 73, coordinates: [-2.19, 30.20] },
+  
   // Western Province
-  { name: "Karongi", province: "West", stunting: 35, wasting: 9, anemia: 16, color: "#ef4444" },
-  { name: "Nyamasheke", province: "West", stunting: 33, wasting: 8, anemia: 15, color: "#fb923c" },
-  { name: "Rusizi", province: "West", stunting: 34, wasting: 9, anemia: 16, color: "#fb923c" },
-  { name: "Rutsiro", province: "West", stunting: 31, wasting: 8, anemia: 14, color: "#fb923c" },
-  { name: "Rubavu", province: "West", stunting: 29, wasting: 7, anemia: 13, color: "#fbbf24" },
+  { name: "Rubavu", province: "Western", stunting: 29, wasting: 7, anemia: 13, foodSecurity: 80, coordinates: [-1.68, 29.27] },
+  { name: "Nyabihu", province: "Western", stunting: 33, wasting: 8, anemia: 15, foodSecurity: 76, coordinates: [-1.64, 29.51] },
+  { name: "Ngororero", province: "Western", stunting: 35, wasting: 9, anemia: 16, foodSecurity: 74, coordinates: [-1.89, 29.55] },
+  { name: "Rutsiro", province: "Western", stunting: 31, wasting: 8, anemia: 14, foodSecurity: 78, coordinates: [-2.07, 29.34] },
+  { name: "Karongi", province: "Western", stunting: 35, wasting: 9, anemia: 16, foodSecurity: 74, coordinates: [-2.00, 29.40] },
+  { name: "Nyamasheke", province: "Western", stunting: 33, wasting: 8, anemia: 15, foodSecurity: 76, coordinates: [-2.30, 29.13] },
+  { name: "Rusizi", province: "Western", stunting: 34, wasting: 9, anemia: 16, foodSecurity: 75, coordinates: [-2.48, 28.91] },
+  
+  // Southern Province
+  { name: "Nyaruguru", province: "Southern", stunting: 32, wasting: 8, anemia: 15, foodSecurity: 77, coordinates: [-2.60, 29.52] },
+  { name: "Huye", province: "Southern", stunting: 28, wasting: 7, anemia: 13, foodSecurity: 81, coordinates: [-2.60, 29.74] },
+  { name: "Nyanza", province: "Southern", stunting: 26, wasting: 6, anemia: 12, foodSecurity: 84, coordinates: [-2.35, 29.75] },
+  { name: "Gisagara", province: "Southern", stunting: 33, wasting: 9, anemia: 15, foodSecurity: 76, coordinates: [-2.53, 29.83] },
+  { name: "Nyamagabe", province: "Southern", stunting: 34, wasting: 9, anemia: 16, foodSecurity: 75, coordinates: [-2.53, 29.45] },
+  { name: "Ruhango", province: "Southern", stunting: 30, wasting: 7, anemia: 14, foodSecurity: 79, coordinates: [-2.23, 29.78] },
+  { name: "Muhanga", province: "Southern", stunting: 29, wasting: 7, anemia: 13, foodSecurity: 80, coordinates: [-2.08, 29.75] },
+  { name: "Kamonyi", province: "Southern", stunting: 27, wasting: 6, anemia: 12, foodSecurity: 83, coordinates: [-2.04, 29.98] },
+  
   // Kigali City
-  { name: "Kigali", province: "Central", stunting: 18, wasting: 4, anemia: 9, color: "#22c55e" },
-  { name: "Gasabo", province: "Central", stunting: 20, wasting: 5, anemia: 10, color: "#22c55e" },
-  { name: "Kicukiro", province: "Central", stunting: 19, wasting: 4, anemia: 9, color: "#22c55e" },
+  { name: "Gasabo", province: "Kigali City", stunting: 20, wasting: 5, anemia: 10, foodSecurity: 88, coordinates: [-1.89, 30.09] },
+  { name: "Kicukiro", province: "Kigali City", stunting: 19, wasting: 4, anemia: 9, foodSecurity: 90, coordinates: [-1.97, 30.10] },
+  { name: "Nyarugenge", province: "Kigali City", stunting: 18, wasting: 4, anemia: 9, foodSecurity: 91, coordinates: [-1.95, 30.06] },
 ]
 
-export function RwandaMap() {
+export default function RwandaMap() {
   const [selectedDistrict, setSelectedDistrict] = useState<string>("Rwamagana")
+  const [mapLoaded, setMapLoaded] = useState(false)
 
   const selectedDistrictData = rwandaDistricts.find(d => d.name === selectedDistrict)
-
-  const topDistricts = [...rwandaDistricts]
-    .sort((a, b) => b.stunting - a.stunting)
-    .slice(0, 5)
-
+  const topDistricts = [...rwandaDistricts].sort((a, b) => b.stunting - a.stunting).slice(0, 5)
   const trends = [
     { year: "DHS 2015", value: 38 },
     { year: "DHS 2017", value: 35 },
     { year: "DHS 2020", value: 32 },
     { year: "DHS 2023", value: 29 },
   ]
+  const getColor = (stunting: number) => {
+    if (stunting >= 35) return "#ef4444" // Red
+    if (stunting >= 28) return "#fb923c" // Orange
+    if (stunting >= 22) return "#fbbf24" // Yellow
+    return "#22c55e" // Green
+  }
 
   return (
-    <div className="space-y-4 p-4 bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <div className="space-y-4 p-6 bg-white min-h-screen">
       {/* Header Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <Card className="bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200">
-          <CardContent className="pt-4 pb-3">
-            <div className="text-xs text-orange-700 font-medium mb-1">Stunting (%)</div>
-            <div className="text-3xl font-bold text-orange-600 mb-0.5">32%</div>
-            <div className="text-[10px] text-orange-600">DHS 2020</div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card className="bg-gradient-to-br from-orange-50 to-yellow-50 border-orange-200 shadow-sm">
+          <CardContent className="pt-6 pb-5">
+            <div className="text-sm text-slate-600 font-medium mb-2">Stunting (%)</div>
+            <div className="text-5xl font-bold text-orange-500 mb-1">32%</div>
+            <div className="text-xs text-slate-500">DHS 2020</div>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-          <CardContent className="pt-4 pb-3">
-            <div className="text-xs text-green-700 font-medium mb-1">Wasting (%)</div>
-            <div className="text-3xl font-bold text-green-600 mb-0.5">9%</div>
-            <div className="text-[10px] text-green-600">DHS 2020</div>
+        <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 shadow-sm">
+          <CardContent className="pt-6 pb-5">
+            <div className="text-sm text-slate-600 font-medium mb-2">Wasting (%)</div>
+            <div className="text-5xl font-bold text-green-600 mb-1">9%</div>
+            <div className="text-xs text-slate-500">DHS 2020</div>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-orange-50 to-red-100 border-orange-200">
-          <CardContent className="pt-4 pb-3">
-            <div className="text-xs text-orange-700 font-medium mb-1">Anemia in women (%)</div>
-            <div className="text-3xl font-bold text-orange-600 mb-0.5">16%</div>
-            <div className="text-[10px] text-orange-600">DHS 2020</div>
+        <Card className="bg-gradient-to-br from-orange-50 to-red-50 border-orange-200 shadow-sm">
+          <CardContent className="pt-6 pb-5">
+            <div className="text-sm text-slate-600 font-medium mb-2">Anemia in women (%)</div>
+            <div className="text-5xl font-bold text-orange-500 mb-1">16%</div>
+            <div className="text-xs text-slate-500">DHS 2020</div>
           </CardContent>
         </Card>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Left Column - Map and Legend */}
+        {/* Left Column - Interactive Leaflet Map */}
         <div className="space-y-4">
-          {/* Interactive SVG Map Placeholder */}
-          <Card>
+          {/* Leaflet Map with all districts */}
+          <Card className="shadow-sm">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base font-semibold text-slate-700">
+                Interactive Map - 30 Districts (Click markers for details)
+              </CardTitle>
+            </CardHeader>
             <CardContent className="p-4">
-              <div className="relative bg-slate-100 rounded-lg p-4 min-h-[300px] flex items-center justify-center">
-                {/* Simplified Rwanda Shape */}
-                <svg viewBox="0 0 400 500" className="w-full h-full max-w-xs">
-                  {/* Northern Province */}
-                  <path d="M150,50 L250,50 L280,100 L250,150 L150,150 L120,100 Z" fill="#22c55e" stroke="#fff" strokeWidth="2" className="hover:opacity-80 cursor-pointer transition-opacity" onClick={() => setSelectedDistrict("Musanze")} />
-                  
-                  {/* Eastern Province */}
-                  <path d="M280,100 L350,150 L350,250 L300,280 L250,250 L250,150 Z" fill="#ef4444" stroke="#fff" strokeWidth="2" className="hover:opacity-80 cursor-pointer transition-opacity" onClick={() => setSelectedDistrict("Rwamagana")} />
-                  
-                  {/* Kigali (Central) */}
-                  <ellipse cx="200" cy="200" rx="50" ry="50" fill="#22c55e" stroke="#fff" strokeWidth="2" className="hover:opacity-80 cursor-pointer transition-opacity" onClick={() => setSelectedDistrict("Kigali")} />
-                  
-                  {/* Southern Province */}
-                  <path d="M150,250 L250,250 L280,350 L200,450 L120,350 Z" fill="#fb923c" stroke="#fff" strokeWidth="2" className="hover:opacity-80 cursor-pointer transition-opacity" onClick={() => setSelectedDistrict("Huye")} />
-                  
-                  {/* Western Province */}
-                  <path d="M50,150 L120,100 L150,150 L150,250 L120,350 L50,300 Z" fill="#fb923c" stroke="#fff" strokeWidth="2" className="hover:opacity-80 cursor-pointer transition-opacity" onClick={() => setSelectedDistrict("Karongi")} />
-                  
-                  {/* Labels */}
-                  <text x="200" y="100" textAnchor="middle" className="text-[10px] font-semibold fill-slate-700">North</text>
-                  <text x="300" y="200" textAnchor="middle" className="text-[10px] font-semibold fill-white">East</text>
-                  <text x="200" y="200" textAnchor="middle" className="text-[10px] font-bold fill-white">Kigali</text>
-                  <text x="200" y="350" textAnchor="middle" className="text-[10px] font-semibold fill-slate-700">South</text>
-                  <text x="85" y="225" textAnchor="middle" className="text-[10px] font-semibold fill-slate-700">West</text>
-                </svg>
+              <div className="rounded-lg overflow-hidden border-2 border-slate-200" style={{ height: '500px' }}>
+                {typeof window !== 'undefined' && (
+                  // @ts-ignore
+                  <MapContainer
+                    // @ts-ignore
+                    center={[-1.94, 30.06]}
+                    zoom={8}
+                    style={{ height: '100%', width: '100%' }}
+                    whenReady={() => setMapLoaded(true)}
+                  >
+                    {/* @ts-ignore */}
+                    <TileLayer
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      // @ts-ignore
+                      attribution="&copy; OpenStreetMap contributors"
+                    />
+                    {/* Add markers for all districts */}
+                    {rwandaDistricts.map((district) => {
+                      const customIcon = new L.DivIcon({
+                        className: 'custom-div-icon',
+                        html: `<div style="
+                          background-color: ${getColor(district.stunting)};
+                          width: 24px;
+                          height: 24px;
+                          border-radius: 50%;
+                          border: 3px solid white;
+                          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: white;
+                          font-weight: bold;
+                          font-size: 10px;
+                          cursor: pointer;
+                        ">${district.stunting}</div>`,
+                        iconSize: [24, 24],
+                        iconAnchor: [12, 12],
+                      })
+                      return (
+                        <Marker
+                          key={district.name}
+                          position={district.coordinates}
+                          icon={customIcon}
+                          eventHandlers={{
+                            click: () => setSelectedDistrict(district.name)
+                          }}
+                        >
+                          <Popup>
+                            <div className="p-2">
+                              <div className="font-bold text-lg mb-2">{district.name}</div>
+                              <div className="text-sm text-slate-600 mb-3">{district.province} Province</div>
+                              <div className="grid grid-cols-2 gap-2 text-xs">
+                                <div>
+                                  <div className="font-semibold text-red-600">Stunting</div>
+                                  <div className="text-lg font-bold">{district.stunting}%</div>
+                                </div>
+                                <div>
+                                  <div className="font-semibold text-orange-600">Wasting</div>
+                                  <div className="text-lg font-bold">{district.wasting}%</div>
+                                </div>
+                                <div>
+                                  <div className="font-semibold text-purple-600">Anemia</div>
+                                  <div className="text-lg font-bold">{district.anemia}%</div>
+                                </div>
+                                <div>
+                                  <div className="font-semibold text-green-600">Food Security</div>
+                                  <div className="text-lg font-bold">{district.foodSecurity}%</div>
+                                </div>
+                              </div>
+                              <div className="mt-2 text-xs text-slate-500 italic">Source: DHS 2020 / NISR</div>
+                            </div>
+                          </Popup>
+                        </Marker>
+                      )
+                    })}
+                  </MapContainer>
+                )}
               </div>
-              
-              {/* Selected District Info */}
-              {selectedDistrictData && (
-                <div className="mt-4 p-3 bg-white rounded-lg border-2 border-blue-500">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-3 h-3 rounded" style={{ backgroundColor: selectedDistrictData.color }}></div>
-                    <span className="font-bold text-sm">{selectedDistrictData.name}</span>
-                  </div>
-                  <p className="text-xs text-slate-600">Stunting: {selectedDistrictData.stunting}% (DHS 2020)</p>
-                </div>
-              )}
             </CardContent>
           </Card>
-
-          {/* Legend */}
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3 flex-wrap">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-4 h-4 bg-green-500 rounded"></div>
-                  <span className="text-xs font-medium">Stunting</span>
+          {/* Selected District Info */}
+          {selectedDistrictData && (
+            <div className="mt-6 p-5 bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl border-l-4 border-blue-500 shadow-sm">
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <div className="font-bold text-xl text-slate-900">{selectedDistrictData.name}</div>
+                  <div className="text-sm text-slate-600 font-medium">{selectedDistrictData.province} Province</div>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-4 h-4 bg-orange-400 rounded"></div>
-                  <span className="text-xs font-medium">Wasting</span>
+                <Badge 
+                  className="text-xs font-bold px-3 py-1"
+                  style={{
+                    backgroundColor: selectedDistrictData.stunting >= 35 ? "#ef4444" : 
+                                   selectedDistrictData.stunting >= 28 ? "#fb923c" :
+                                   selectedDistrictData.stunting >= 22 ? "#fbbf24" : "#22c55e",
+                    color: "white"
+                  }}
+                >
+                  {selectedDistrictData.stunting >= 35 ? "High Risk" : 
+                   selectedDistrictData.stunting >= 28 ? "Moderate" :
+                   selectedDistrictData.stunting >= 22 ? "Low-Moderate" : "Good"}
+                </Badge>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="text-xs text-slate-500 font-medium mb-1">Stunting</div>
+                  <div className="text-2xl font-bold text-red-600">{selectedDistrictData.stunting}%</div>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-4 h-4 bg-red-500 rounded"></div>
-                  <span className="text-xs font-medium">Anemia</span>
+                <div className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="text-xs text-slate-500 font-medium mb-1">Wasting</div>
+                  <div className="text-2xl font-bold text-orange-600">{selectedDistrictData.wasting}%</div>
+                </div>
+                <div className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="text-xs text-slate-500 font-medium mb-1">Anemia</div>
+                  <div className="text-2xl font-bold text-purple-600">{selectedDistrictData.anemia}%</div>
+                </div>
+                <div className="bg-white p-3 rounded-lg shadow-sm">
+                  <div className="text-xs text-slate-500 font-medium mb-1">Food Security</div>
+                  <div className="text-2xl font-bold text-green-600">{selectedDistrictData.foodSecurity}%</div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="mt-3 text-xs text-slate-500 italic">Source: DHS 2020 / NISR</div>
+            </div>
+          )}
         </div>
-
-        {/* Right Column - Charts */}
+        {/* Right Column - District Details & Charts */}
         <div className="space-y-4">
           {/* Top Districts Chart */}
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm">Districts with highest stunting</CardTitle>
+          <Card className="shadow-sm">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base font-semibold text-slate-700">Districts with highest stunting</CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={180}>
-                <BarChart data={topDistricts} layout="vertical" margin={{ left: 60, right: 10, top: 5, bottom: 5 }}>
-                  <XAxis type="number" domain={[0, 60]} tick={{ fontSize: 10 }} />
-                  <YAxis type="category" dataKey="name" width={60} tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ fontSize: 11 }} />
-                  <Bar dataKey="stunting" fill="#ef4444" radius={[0, 4, 4, 0]} />
+              <ResponsiveContainer width="100%" height={240}>
+                <BarChart data={topDistricts} layout="vertical" margin={{ left: 80, right: 20, top: 5, bottom: 5 }}>
+                  <XAxis type="number" domain={[0, 60]} tick={{ fontSize: 12 }} stroke="#94a3b8" />
+                  <YAxis type="category" dataKey="name" width={75} tick={{ fontSize: 12 }} stroke="#94a3b8" />
+                  <Tooltip contentStyle={{ fontSize: 12, borderRadius: '8px', border: '1px solid #e2e8f0' }} />
+                  <Bar dataKey="stunting" fill="#ef4444" radius={[0, 6, 6, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
 
           {/* Trends Chart */}
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm">Stunting in Rwanda</CardTitle>
+          <Card className="shadow-sm">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base font-semibold text-slate-700">Stunting in Rwanda</CardTitle>
             </CardHeader>
+
             <CardContent>
-              <ResponsiveContainer width="100%" height={180}>
-                <LineChart data={trends} margin={{ left: 5, right: 10, top: 5, bottom: 5 }}>
+              <ResponsiveContainer width="100%" height={240}>
+                <LineChart data={trends} margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                  <XAxis dataKey="year" tick={{ fontSize: 10 }} />
-                  <YAxis domain={[20, 45]} tick={{ fontSize: 10 }} />
-                  <Tooltip contentStyle={{ fontSize: 11 }} />
-                  <Line type="monotone" dataKey="value" stroke="#ef4444" strokeWidth={2} dot={{ fill: "#ef4444", r: 4 }} />
+                  <XAxis dataKey="year" tick={{ fontSize: 12 }} stroke="#94a3b8" />
+                  <YAxis domain={[20, 45]} tick={{ fontSize: 12 }} stroke="#94a3b8" />
+                  <Tooltip contentStyle={{ fontSize: 12, borderRadius: '8px', border: '1px solid #e2e8f0' }} />
+                  <Line type="monotone" dataKey="value" stroke="#ef4444" strokeWidth={3} dot={{ fill: "#ef4444", r: 5 }} />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
         </div>
+      {/* End grid row */}
       </div>
 
       {/* All Districts List */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm">All Districts - Click to View Details</CardTitle>
+      <Card className="shadow-sm">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base font-semibold text-slate-700">All 30 Districts - Click to View Details</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-1.5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-2">
             {rwandaDistricts.map((district) => (
               <button
                 key={district.name}
                 onClick={() => setSelectedDistrict(district.name)}
-                className={`px-2 py-1.5 rounded-lg font-medium text-xs text-white transition-all ${
+                className={`px-3 py-2 rounded-lg font-medium text-xs text-white transition-all shadow-sm ${
                   selectedDistrict === district.name
-                    ? "ring-2 ring-offset-2 ring-blue-500 scale-105"
-                    : "hover:scale-105"
+                    ? "ring-2 ring-offset-2 ring-blue-600 scale-105 shadow-lg"
+                    : "hover:scale-105 hover:shadow-md"
                 }`}
-                style={{ backgroundColor: district.color }}
+                style={{ backgroundColor: getColor(district.stunting) }}
               >
                 {district.name}
               </button>
@@ -218,5 +305,5 @@ export function RwandaMap() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
