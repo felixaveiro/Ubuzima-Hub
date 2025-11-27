@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
+import Script from "next/script"
 import { Navigation } from "@/components/navigation"
 import "./globals.css"
 
@@ -20,6 +21,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        {/* Google Maps API */}
+        {process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY && (
+          <Script
+            src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
+            strategy="lazyOnload"
+          />
+        )}
+      </head>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <div className="flex min-h-screen flex-col">
           <Navigation />
