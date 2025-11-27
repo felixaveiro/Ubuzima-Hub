@@ -4,7 +4,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import dynamic from 'next/dynamic'
-import { RwandaMap } from "@/components/rwanda-map"
+import RwandaMap from "@/components/rwanda-map"
 
 const stats = [
   { 
