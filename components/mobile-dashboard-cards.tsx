@@ -118,4 +118,3 @@ export function MobileDashboardCards({ onCardClick }: MobileDashboardCardsProps)
   )
 }
 
-// jkcbbxk jdbjhdvsbf
