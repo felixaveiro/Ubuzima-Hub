@@ -28,7 +28,7 @@ const nutritionIndicators = [
   { indicator: "Stunting (Under 5)", current: 38, target: 25, change: -2.1, status: "improving" },
   { indicator: "Wasting (Under 5)", current: 2, target: 2, change: 0, status: "stable" },
   { indicator: "Anemia (Women 15-49)", current: 17, target: 10, change: -3.2, status: "improving" },
-  { indicator: "Exclusive Breastfeeding", current: 87, target: 90, change: 2.4, status: "improving" },
+  { indicator: "Food Security Rate", current: 85, target: 90, change: 5.1, status: "improving" },
 ]
 
 const districtNutritionData = [

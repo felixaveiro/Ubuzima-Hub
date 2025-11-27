@@ -9,14 +9,14 @@ import Script from 'next/script'
 
 const stats = [
   { 
-    value: "38%", 
-    label: "Children Under 5 Stunted", 
-    trend: "down", 
-    change: "-2.1%",
-    color: "text-red-600",
-    bgColor: "bg-red-50/80",
-    borderColor: "border-red-100",
-    hoverBgColor: "hover:bg-red-100/90"
+    value: "85%", 
+    label: "Food Security Rate", 
+    trend: "up", 
+    change: "+5.1%",
+    color: "text-green-600",
+    bgColor: "bg-green-50/80",
+    borderColor: "border-green-100",
+    hoverBgColor: "hover:bg-green-100/90"
   },
   { 
     value: "2%", 
